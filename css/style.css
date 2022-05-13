@@ -1,0 +1,497 @@
+@charset "UTF-8";
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Lato, sans-serif; }
+
+/* Colores */
+.bgDark {
+  background-color: #212a31; }
+
+/* Mixin para Flexbox */
+/* Estilo de tabla con alíneación izquierda para la 1ra columna y derecha para la 2da - Utilizado en Info y Recomendaciones */
+.table-custom table, .contenedorInfo .mainInfo #horarios table, .datosReco table {
+  font-weight: 300;
+  width: 100%;
+  border-collapse: collapse; }
+
+.table-custom tr td:first-child, .contenedorInfo .mainInfo #horarios tr td:first-child, .datosReco tr td:first-child {
+  text-align: left; }
+
+.table-custom tr td:nth-child(2), .contenedorInfo .mainInfo #horarios tr td:nth-child(2), .datosReco tr td:nth-child(2) {
+  text-align: right; }
+
+/* Google Fonts */
+/* Tamaños de texto */
+/* Estilos de texto y títulos */
+.textWhite {
+  color: whitesmoke; }
+
+.titulo--xxl {
+  font-weight: 400;
+  font-size: 3rem;
+  line-height: 4rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem; }
+  @media only screen and (max-width: 320px) {
+    .titulo--xxl {
+      font-size: 2.5rem; } }
+
+.titulo--xl {
+  font-weight: 300;
+  font-size: 2.5rem; }
+
+.titulo--md {
+  font-weight: 700;
+  font-size: 2rem; }
+
+.titulo--sm {
+  font-weight: 300;
+  font-size: 2rem; }
+
+/* Estilos generales */
+html {
+  font-size: 62.5%; }
+
+body {
+  font-size: 2rem;
+  line-height: 3rem;
+  color: #212a31; }
+
+a {
+  color: #212a31;
+  text-decoration: none; }
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  margin-bottom: 3rem; }
+
+ol,
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0; }
+
+/* Estilos de la barra de navegación */
+.nav {
+  grid-area: nav; }
+  .nav .navbar-brand .logo {
+    width: 75%; }
+    @media only screen and (max-width: 320px) {
+      .nav .navbar-brand .logo {
+        width: 60%; } }
+  .nav .navbar-toggler-icon {
+    font-size: 2rem; }
+    @media only screen and (max-width: 320px) {
+      .nav .navbar-toggler-icon {
+        font-size: 1.5rem; } }
+  .nav .navbar-nav .nav-item .nav-link {
+    color: #212a31;
+    padding-left: 3rem; }
+    .nav .navbar-nav .nav-item .nav-link:hover {
+      color: #f1bd13; }
+    @media only screen and (min-width: 992px) {
+      .nav .navbar-nav .nav-item .nav-link {
+        font-size: 1.5rem;
+        margin-left: 1rem;
+        margin-right: 1rem;
+        padding-left: 0; } }
+    @media only screen and (max-width: 576px) {
+      .nav .navbar-nav .nav-item .nav-link {
+        padding-left: 0.5rem; } }
+
+.bg-blanco {
+  background-color: white; }
+
+/*  Estilos de header - Usado en todas las páginas salvo el index */
+.header {
+  grid-area: header;
+  /* Estilo específico de la página info */ }
+  .header img {
+    width: 100%;
+    margin-bottom: 1rem; }
+  .header h1 {
+    text-align: center; }
+  .header .headerInfo-intro {
+    padding: 4rem;
+    margin: 1rem;
+    border: 5px solid #212a31;
+    text-align: center; }
+    .header .headerInfo-intro span {
+      font-weight: 700; }
+
+/* Estilos de cards */
+.customCard, .blackCard, .whiteCard {
+  padding-bottom: 2rem; }
+  .customCard h2, .blackCard h2, .whiteCard h2,
+  .customCard h3,
+  .blackCard h3,
+  .whiteCard h3 {
+    color: #f1bd13;
+    margin-left: 2rem;
+    margin-bottom: 2rem; }
+  .customCard img, .blackCard img, .whiteCard img {
+    padding: 3rem; }
+    .customCard img:hover, .blackCard img:hover, .whiteCard img:hover {
+      transform: scale(1.03);
+      transition: all 0.5s; }
+    @media only screen and (max-width: 450px) {
+      .customCard img, .blackCard img, .whiteCard img {
+        padding: 0.5rem; } }
+  .customCard .card-body p, .blackCard .card-body p, .whiteCard .card-body p,
+  .customCard .card-footer p,
+  .blackCard .card-footer p,
+  .whiteCard .card-footer p {
+    margin: auto 2rem; }
+    @media only screen and (max-width: 450px) {
+      .customCard .card-body p, .blackCard .card-body p, .whiteCard .card-body p,
+      .customCard .card-footer p,
+      .blackCard .card-footer p,
+      .whiteCard .card-footer p {
+        margin: 0; } }
+  .customCard .card-body a, .blackCard .card-body a, .whiteCard .card-body a,
+  .customCard .card-footer a,
+  .blackCard .card-footer a,
+  .whiteCard .card-footer a {
+    color: #1b9aaa;
+    text-decoration: none; }
+    .customCard .card-body a:hover, .blackCard .card-body a:hover, .whiteCard .card-body a:hover,
+    .customCard .card-footer a:hover,
+    .blackCard .card-footer a:hover,
+    .whiteCard .card-footer a:hover {
+      text-decoration: underline; }
+
+/* Black Card: usada en páginas Sustentabilidad e Info */
+.blackCard {
+  background-color: #212a31;
+  color: whitesmoke;
+  /* Estilo específico para la blackCard de la página Info */ }
+  .blackCard ol {
+    list-style: none; }
+    .blackCard ol li {
+      margin: 1.5rem auto;
+      padding-left: 2rem; }
+  .blackCard[id="horarios"] {
+    padding: 3rem;
+    text-align: center; }
+
+/* White Card: usada en la página Recomendaciones */
+.whiteCard {
+  border: 0.5px solid #212a31; }
+
+/* Estilos de botones */
+.boton, .btn-grad, #botonHome, .btn-grad-reset {
+  border: none;
+  padding: 1.5rem 3rem;
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.5s;
+  background-size: 200% auto;
+  border-radius: 0.3rem;
+  display: inline-block;
+  width: 45%;
+  color: #212a31;
+  white-space: normal;
+  word-wrap: break-word; }
+  .boton:hover, .btn-grad:hover, #botonHome:hover, .btn-grad-reset:hover {
+    background-position: right center;
+    text-decoration: none;
+    transform: scale(1.03); }
+
+.btn-grad, #botonHome {
+  background-image: linear-gradient(to right, #f1bd13, #f8ca38 51%, #ffd753 100%); }
+
+.btn-grad-reset {
+  background-image: linear-gradient(to right, #cccccc 0%, #e0e0e0 51%, whitesmoke 100%); }
+
+#botonHome {
+  font-size: 3rem;
+  width: 70%;
+  margin: 0; }
+
+.contenedorHome {
+  display: grid;
+  grid-template-areas: "nav" "mainHome" "footer";
+  background-image: url(../assets/entrada-vertical.jpg);
+  background-position: center 60%;
+  background-repeat: no-repeat;
+  height: 100vh;
+  grid-template-rows: 10vh 85vh 5vh;
+  /* Ajustes para Galaxy Fold */ }
+  @media only screen and (max-width: 360px) {
+    .contenedorHome {
+      grid-template-rows: 5vh 90vh 5vh; } }
+  @media only screen and (min-width: 1024px) {
+    .contenedorHome {
+      background-image: url(../assets/entrada-horizontal.jpg);
+      background-size: cover;
+      background-position: center 20%;
+      grid-template-rows: 5vh 90vh 5vh; } }
+
+.mainHome {
+  grid-area: mainHome; }
+  .mainHome .homeTitle {
+    position: relative;
+    top: 25%;
+    background-color: rgba(245, 245, 245, 0.5);
+    text-align: center;
+    padding-bottom: 2rem; }
+    @media only screen and (min-width: 1024px) {
+      .mainHome .homeTitle {
+        position: relative;
+        background-color: transparent;
+        color: whitesmoke;
+        width: 35%;
+        text-align: left;
+        margin-left: 7rem; } }
+    .mainHome .homeTitle h1 {
+      font-weight: 700;
+      padding-top: 2rem;
+      margin: 2rem 0; }
+      @media only screen and (min-width: 1024px) {
+        .mainHome .homeTitle h1 {
+          font-size: 5rem;
+          line-height: 6rem;
+          margin-bottom: 4rem; } }
+    .mainHome .homeTitle h2 {
+      margin: 2rem 0; }
+      @media only screen and (min-width: 1024px) {
+        .mainHome .homeTitle h2 {
+          margin-bottom: 4rem; } }
+
+.contenedorInfo {
+  /* Estilos de la sección Downloads */ }
+  .contenedorInfo .mainInfo {
+    padding: 1rem;
+    margin: 0;
+    /* Estilo de tabla de Horarios */
+    /* Sacando padding a la última fila - Servicios Adicionales */ }
+    @media only screen and (min-width: 992px) {
+      .contenedorInfo .mainInfo {
+        padding: 0rem; } }
+    .contenedorInfo .mainInfo #horarios tr {
+      height: 7rem;
+      border-bottom: 0.5px solid whitesmoke; }
+    @media only screen and (max-width: 400px) {
+      .contenedorInfo .mainInfo #horarios {
+        font-size: 1.5rem; } }
+    .contenedorInfo .mainInfo #adicionales {
+      padding: 0; }
+  .contenedorInfo #downloads .row {
+    background-color: whitesmoke;
+    margin: 1rem;
+    padding: 2rem; }
+    @media only screen and (min-width: 992px) {
+      .contenedorInfo #downloads .row {
+        margin: 0;
+        height: 100%; } }
+    @media only screen and (min-width: 992px) {
+      .contenedorInfo #downloads .row li {
+        margin: 1rem 0 1rem -0.5rem; } }
+    .contenedorInfo #downloads .row li a {
+      color: #212a31;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 2rem; }
+      .contenedorInfo #downloads .row li a i {
+        font-size: 5rem; }
+        @media only screen and (max-width: 440px) {
+          .contenedorInfo #downloads .row li a i {
+            font-size: 2.5rem; } }
+        .contenedorInfo #downloads .row li a i:hover {
+          transform: scale(1.1); }
+
+/* Estilo específico para los datos prácticos -- Estilo general en Commons */
+.datosReco {
+  padding-left: 2rem;
+  padding-top: 2rem;
+  margin-top: 2rem;
+  background-color: transparent;
+  font-size: 1.5rem; }
+  .datosReco td:first-child {
+    text-transform: uppercase; }
+    @media only screen and (max-width: 370px) {
+      .datosReco td:first-child {
+        display: none; } }
+  .datosReco td:nth-child(2) {
+    padding-left: 5rem; }
+    @media only screen and (max-width: 370px) {
+      .datosReco td:nth-child(2) {
+        padding-left: 0; } }
+  .datosReco tr {
+    border-bottom: 1px solid whitesmoke;
+    height: 6rem; }
+    .datosReco tr:last-child {
+      border-bottom: 0px; }
+
+/* Grid */
+.contenedorGreen {
+  display: grid;
+  grid-template-areas: "nav" "header" "introGreen" "mainGreen" "asideGreen" "footer"; }
+  @media only screen and (min-width: 1200px) {
+    .contenedorGreen {
+      grid-template-areas: "nav nav" "header header" "introGreen asideGreen" "mainGreen mainGreen" "footer footer";
+      grid-template-columns: 5fr 2fr; } }
+  @media only screen and (min-width: 1400px) {
+    .contenedorGreen {
+      grid-template-columns: 3fr 1fr; } }
+  .contenedorGreen #introGreen {
+    grid-area: introGreen; }
+    .contenedorGreen #introGreen .blackCard {
+      height: 100%; }
+  .contenedorGreen .card[id="introGreen"] {
+    border: 0px; }
+  .contenedorGreen .mainGreen {
+    grid-area: mainGreen;
+    width: 97%; }
+    .contenedorGreen .mainGreen .accordion-button:not(.collapsed) {
+      background-color: white;
+      color: #f1bd13; }
+      .contenedorGreen .mainGreen .accordion-button:not(.collapsed)::after {
+        background-image: url(../assets/accordion-icon.svg); }
+    .contenedorGreen .mainGreen .accordion-button:focus {
+      border: none;
+      box-shadow: 0 0 0 0.1rem rgba(241, 189, 19, 0.3); }
+  .contenedorGreen .asideGreen {
+    grid-area: asideGreen;
+    margin-bottom: 3rem;
+    border: 5px solid #212a31;
+    padding: 2rem; }
+    @media only screen and (min-width: 1024px) {
+      .contenedorGreen .asideGreen {
+        font-size: 1.5rem;
+        margin-left: 3rem;
+        margin-right: 1rem;
+        margin-bottom: 0; } }
+
+/* Estilo de lista con cruces amarillas */
+.lista-green, .contenedorGreen .asideGreen {
+  list-style: disc inside url(../assets/list-icon.svg); }
+  .lista-green span, .contenedorGreen .asideGreen span {
+    padding-left: 2rem; }
+
+/* Grid */
+.contenedorContacto {
+  display: grid;
+  grid-template-areas: "nav" "header" "mainContacto" "mapa" "footer"; }
+  @media only screen and (min-width: 1024px) {
+    .contenedorContacto {
+      grid-template-areas: "nav nav" "header header" "mapa mainContacto" "footer footer";
+      grid-template-columns: repeat(2, 1fr);
+      column-gap: 3rem; } }
+
+/* Formulario de contacto */
+.mainContacto {
+  grid-area: mainContacto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  font-weight: 300;
+  margin-bottom: 3rem; }
+  .mainContacto h2 {
+    padding: 2rem 0;
+    border-top: 0.5px solid #212a31;
+    border-bottom: 0.5px solid #212a31;
+    text-align: center; }
+  .mainContacto .form-select, .mainContacto .form-control {
+    font-size: 1.5rem;
+    font-weight: 300; }
+  .mainContacto textarea {
+    height: 15vh; }
+  @media only screen and (max-width: 450px) {
+    .mainContacto #contacto-botones button {
+      width: 100%;
+      margin-top: 1rem;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center; } }
+
+/* Mapa */
+.mapa {
+  grid-area: mapa;
+  margin-bottom: 3rem; }
+  .mapa iframe {
+    width: 100%;
+    height: 50vh;
+    border-width: 0; }
+    @media only screen and (min-width: 1024px) {
+      .mapa iframe {
+        height: 100%; } }
+
+.footer {
+  grid-area: footer;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 1rem 0;
+  font-size: 1.5rem;
+  /* Footer en una sola línea para pantallas de mayores dimensiones */
+  /* Versión para pantallas XS */
+  /* Estilo específico para el footer de la homepage */ }
+  @media only screen and (min-width: 768px) {
+    .footer {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 4rem; } }
+  @media only screen and (min-width: 1024px) {
+    .footer {
+      margin-top: 3rem; } }
+  @media only screen and (max-width: 420px) {
+    .footer div:first-child {
+      text-align: center;
+      width: 80%; } }
+  .footer div i:first-child {
+    margin-right: 1rem; }
+  .footer div span {
+    text-transform: uppercase;
+    margin: 0 0.8rem; }
+  .footer .redes {
+    margin-top: 1rem; }
+    .footer .redes a i {
+      margin: 0 15px;
+      color: whitesmoke;
+      height: 30px; }
+      .footer .redes a i:hover {
+        transform: scale(1.3); }
+    .footer .redes a img {
+      margin: 0 15px 3px 15px;
+      height: 14px; }
+      .footer .redes a img:hover {
+        transform: scale(1.3); }
+  .footer[id="footerHome"] {
+    width: 100%;
+    position: absolute;
+    bottom: 0; }
+    .footer[id="footerHome"] .wifi {
+      margin-left: 3rem; }
+
+.contenedor404 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 82vh; }
+  .contenedor404 header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; }
+    .contenedor404 header img {
+      margin: 3rem; }
+  .contenedor404 main a {
+    color: #1b9aaa; }

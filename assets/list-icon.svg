@@ -1,0 +1,7 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="15" height="15">
+	<title>New Project</title>
+	<style>
+		.s0 { fill: #f1bd13 } 
+	</style>
+	<path id="+" class="s0" d="m26.4 13.3v3.2h-9.8v10.3h-3.4v-10.3h-9.8v-3.2h9.8v-10.3h3.4v10.3z"/>
+</svg>
