@@ -198,7 +198,7 @@ function filtrarReservas(filtro){
     }
 }
 
-// Función Cancelar Reserva por número de reserva -- AGREGAR CONDICIONAL SEGUN SI LA RESERVA ESTA ACTIVA
+// Función Cancelar Reserva por número de reserva
 function cancelar(){
     let entrada = prompt("Para cancelar tu reserva, ingresa el número a continuación. Ingresa ESC para salir");
     if (entrada != "ESC"){
