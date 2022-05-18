@@ -7,10 +7,6 @@
         img{
             margin: 3rem;
         }
-        span{
-            color: map-get($paleta, 'secondary');
-            font-weight: 800;
-        }
     }
         a{
             color: map-get($paleta, 'link');

@@ -240,9 +240,8 @@ function seguirCotizando(entrada){
 function iniciarCotizador(texto){
     if (nombreUsuario == ""){
         pedirNombre();
+        texto = `Hola ${nombreUsuario}! ${texto}`;
     }
-
-    texto = `Hola ${nombreUsuario}! ${texto}`;
 
     let opcion = parseInt(prompt(texto));
     let opciones = [1, 2, 3];
@@ -291,8 +290,8 @@ function iniciarCotizador(texto){
         
         else{
             filtrarReservas(criterio);
-            let entrada = (prompt("¿Deseas realizar otra operación? S/N")).toUpperCase();
-            seguirCotizando(entrada);
+                let entrada = (prompt("¿Deseas realizar otra operación? S/N")).toUpperCase();
+                seguirCotizando(entrada);
         }
     }
 
@@ -310,6 +309,7 @@ function iniciarCotizador(texto){
         // Regresar al menu anterior
         if (preFiltro == 0){
             seguirCotizando("S");
+            return;
         }
         if(preFiltro == 2){
             cancelar()
@@ -406,6 +406,7 @@ iniciarCotizador(textoInicial);
 // DOM: Inserta el nombre del pasajero en el saludo final en el HTML
 let nombrePax = document.getElementById("nombrePasajero");
 nombrePax.innerText= `${nombreUsuario} `;
+nombrePax.setAttribute('style', 'font-weight: 800;')
 
 
 
