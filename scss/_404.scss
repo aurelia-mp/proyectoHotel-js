@@ -1,0 +1,16 @@
+.contenedor404{
+    @include flex(column, center, center); 
+    text-align: center;
+    height: 82vh;
+    header{
+        @include flex(column, center, center);
+        img{
+            margin: 3rem;
+        }
+    }
+    main{
+        a{
+            color: map-get($paleta, 'link');
+        }
+    }
+}

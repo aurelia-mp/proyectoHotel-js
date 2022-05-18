@@ -34,7 +34,7 @@ class Reserva {
 // INICIALIZACIÓN DE VARIABLES
 
 // Se cargan tres habitaciones de clase Habitacion en un array
-const standard = new Habitacion("Standard", 110, 90);
+const standard = new Habitacion("Standard", 90, 100);
 const superior = new Habitacion("Superior", 110, 140);
 const suite = new Habitacion("Suite", 150, 300);
 
@@ -69,8 +69,14 @@ let cantidadNoches;
 let mes;
 let habitacionACotizar = {};
 let totalEstadia;
-let textoInicial = "Bienvenido a nuestro sistema de reservas online \n\nIngresa el número de opción deseada:\n\n 1. Cotizar una estadía\n 2. Consultar si tenés una reserva activa\n 3. Cancelar una reserva";
+let textoInicial = "Bienvenido/a a nuestro sistema de reservas online \n\nIngresa el número de opción deseada:\n\n 1. Cotizar una estadía\n 2. Consultar si tenés una reserva activa\n 3. Cancelar una reserva";
+let nombreUsuario = "";
 
+
+// Pedir el nombre al usuario
+function pedirNombre(){
+    nombreUsuario = prompt("Hola! ¿Cuál es tu nombre?");
+}
 
 // Pedir al usuario la categoria y buscarla en el array de habitaciones - Retorna un objeto Habitación
 function solicitarCategoria(){
@@ -131,6 +137,9 @@ function confirmarReserva(categoria, noches, checkin, total){
         reservas.push(reservaNueva);
         reservaNueva.mostrarReserva()
         numeroReserva ++;
+
+        // Mostrar la reserva nueva en el HTML
+        displayReservaHTML(reservaNueva);
     }
     else{
         alert("Reserva abandonada. Esperamos recibirte en otra oportunidad");
@@ -227,15 +236,14 @@ function seguirCotizando(entrada){
     }
 }
 
-// Function Validar Entrada
-function validarEntrada(array, entrada, menu){
-    while(array.indexOf(entrada) == -1){
-        entrada = parseInt(prompt("No entendí la opción elegida." + menu));
-    }
-}
-
 // Function Iniciar Cotizador
 function iniciarCotizador(texto){
+    if (nombreUsuario == ""){
+        pedirNombre();
+    }
+
+    texto = `Hola ${nombreUsuario}! ${texto}`;
+
     let opcion = parseInt(prompt(texto));
     let opciones = [1, 2, 3];
 
@@ -250,6 +258,7 @@ function iniciarCotizador(texto){
             opcion = parseInt(opcion);
         }
     }
+    
 
     opcion = parseInt(opcion);
     // Opcion 1 : Cotiza una habitación: primero solicita la categoría, despues las fechas
@@ -315,13 +324,89 @@ function iniciarCotizador(texto){
         seguirCotizando(entrada);       
     }   
 }
-// Invocación de funciones
-//  Muestra por consola las tarifas de todas las habitaciones
-for (const habitacion of habitaciones){
-    console.log(habitacion.verTarifas());
+
+// Interacción con DOM
+// Insertar tabla con las habitaciones y sus tarifas
+function insertarTablaHabitaciones(){
+    let tablaHabitaciones = document.createElement("table");
+    let tablaHabitacionesHead=document.createElement("thead");
+    let tablaHabitacionesBody = document.createElement("tbody");
+    let seccionHabitaciones = document.getElementById("habitaciones");
+    
+    tablaHabitacionesHead.innerHTML = `<tr>
+                                            <td>Categoría</td>
+                                            <td>Tarifa Temporada Baja</td>
+                                            <td> Tarifa Temporada Alta</td>
+                                        </tr>`;
+    
+    seccionHabitaciones.append(tablaHabitaciones);
+    tablaHabitaciones.append(tablaHabitacionesHead);
+    tablaHabitaciones.append(tablaHabitacionesBody);
+    for (habitacion of habitaciones){
+    let row = document.createElement("tr");
+    row.innerHTML = `<td>${habitacion.categoria}</td>
+                    <td>${habitacion.tarifaBaja}</td>
+                    <td>${habitacion.tarifaAlta}</td>`;
+    
+    tablaHabitacionesBody.append(row);
+    }
+    
+    tablaHabitaciones.className ="table table-light table-hover"
 }
 
+// Mostrar la reserva nueva en el HTML
+function displayReservaHTML(reserva){
+    let seccionReservas = document.createElement("section");
+    seccionReservas.innerHTML="<h2>Tu nueva reserva:</h2>"
+    seccionReservas.id="reserva";
+    let principal = document.getElementById("principalReservar")
+    principal.append(seccionReservas);
+    
+    let tablaReservaNueva = document.createElement("table");
+    let tablaReservaNuevaHead =document.createElement("thead");
+    let tablaReservaNuevaBody = document.createElement("tbody");
+    
+    seccionReservas.append(tablaReservaNueva);
+    tablaReservaNueva.className ="table table-light table-hover"
+    tablaReservaNueva.append(tablaReservaNuevaHead);
+    tablaReservaNueva.append(tablaReservaNuevaBody);
+    
+    tablaReservaNuevaHead.innerHTML = `<tr>
+                                        <td>#</td>
+                                        <td>Nombre</td>
+                                        <td>Check in</td>
+                                        <td>Noches</td>
+                                        <td>Categoría</td>
+                                        <td>Tarifa</td>
+                                        <td>Total Estadía</td>
+                                    </tr>`;
+    
+    
+    let row = document.createElement("tr");
+    row.innerHTML = `<td>${reserva.numero}</td>
+                    <td>${reserva.pasajero}</td>
+                    <td>${reserva.checkin}</td>
+                    <td>${reserva.noches}</td>
+                    <td>${reserva.categoria}</td>
+                    <td>${reserva.noches}</td>
+                    <td>${reserva.totalEstadia}</td>`;
+    
+    tablaReservaNuevaBody.append(row);
+}
+
+
+// Invocación de funciones
+
+// DOM: Agrega una tabla con la lista de habitaciones y sus tarifas
+insertarTablaHabitaciones();
+
+// Inicia el cotizador 
 iniciarCotizador(textoInicial);
+
+// DOM: Inserta el nombre del pasajero en el saludo final en el HTML
+let nombrePax = document.getElementById("nombrePasajero");
+nombrePax.innerText= `${nombreUsuario} `;
+
 
 
 

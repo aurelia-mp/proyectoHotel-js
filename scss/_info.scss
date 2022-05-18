@@ -1,0 +1,58 @@
+.contenedorInfo{
+	.mainInfo{
+		padding: 1rem;
+		@media only screen and (min-width:992px){
+			padding:0rem;
+		}
+		margin:0;
+		/* Estilo de tabla de Horarios */
+		#horarios{
+			@extend .table-custom;		
+			tr{
+				height: 7rem;
+				border-bottom: 0.5px solid map-get($paleta, 'light');
+			}
+			@media only screen and (max-width: 400px){
+				font-size: 1.5rem;
+			}
+		}
+
+		/* Sacando padding a la última fila - Servicios Adicionales */
+		#adicionales{
+			padding:0;
+		}
+		
+	}
+	/* Estilos de la sección Downloads */
+	#downloads {
+		.row{
+			// background-color: transparentize(map-get($paleta, 'secondary'), $amount: 0.6);
+			background-color: map-get($paleta, 'light');
+			margin: 1rem;
+			padding: 2rem;
+			@media only screen and (min-width: 992px){
+				margin:0;
+				height: 100%;
+			}
+			li{
+				@media only screen and (min-width: 992px){
+					margin: 1rem 0 1rem -0.5rem;
+				}
+				a{
+					color: map-get($paleta, 'main');
+					@include flex(column,center,center);
+					margin-bottom: 2rem;
+					i{
+						font-size: $textXxl;
+						@media only screen and (max-width: 440px){
+							font-size: $textLg;
+						}
+						&:hover{
+							transform:scale(1.1);
+						}
+					}
+				} 
+			}
+		}
+	}
+}

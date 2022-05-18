@@ -1,0 +1,25 @@
+/*  Estilos de header - Usado en todas las páginas salvo el index */
+.header{
+	grid-area: header;
+
+	img{
+		width: 100%;
+		margin-bottom: 1rem;
+	}
+
+	h1{
+		text-align: center;
+	}
+	/* Estilo específico de la página info */
+	.headerInfo-intro{
+		padding: 4rem;
+		margin: 1rem;
+		border: 5px solid map-get($paleta, 'main');
+		text-align: center;
+
+		span{
+			font-weight: 700;
+		}
+	}
+}
+

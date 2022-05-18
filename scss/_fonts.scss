@@ -1,0 +1,74 @@
+/* Google Fonts */
+
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap');
+
+/* Tamaños de texto */
+$textSm: 1.5rem;
+$textMd: 2rem;
+$textLg: 2.5rem;
+$textXl: 3rem;
+$textXxl: 5rem;
+
+/* Estilos de texto y títulos */
+@mixin texto($font-weight, $font-size){
+	font-weight: $font-weight;
+	font-size: $font-size;
+}
+
+.textWhite{
+	color: map-get($paleta, 'light');
+}
+
+.titulo--xxl{
+	@include texto(400, $textXl);
+	line-height: 4rem;
+	margin-top: 2rem;
+	margin-bottom: 2rem;
+	@media only screen and (max-width: 320px){
+		font-size: $textLg;
+	  }
+}
+
+.titulo--xl{
+	@include texto(300, $textLg);
+}
+
+.titulo--md	{
+	@include texto(700, $textMd);
+}
+
+.titulo--sm	{
+	@include texto(300, $textMd);
+}
+
+/* Estilos generales */
+
+html{
+	font-size:62.5%;
+}
+
+body{
+	font-size: $textMd;
+	line-height: 3rem;
+	color: map-get($paleta, 'main');
+}
+
+a{
+	color:map-get($paleta, 'main');
+	text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5{
+	margin-bottom: 3rem;
+}	
+
+ol, 
+ul{
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}

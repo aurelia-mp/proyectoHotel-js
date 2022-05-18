@@ -1,0 +1,46 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; 
+    font-family: Lato, sans-serif;
+  }
+
+/* Colores */
+
+$paleta:(
+  'main': rgb(33,42,49),
+  'secondary': rgb(241,189,19),
+  'light': rgb(245,245,245),
+  'link': rgb(27,154,170),
+  'white': white,
+  'black': black, 
+);
+
+.bgDark{
+	background-color: map-get($paleta, 'main');
+}
+
+/* Mixin para Flexbox */
+@mixin flex($direccion, $justify, $align){
+  display:flex;
+  flex-direction: $direccion;
+  justify-content: $justify;
+  align-items: $align;
+}
+
+/* Estilo de tabla con alíneación izquierda para la 1ra columna y derecha para la 2da - Utilizado en Info y Recomendaciones */
+.table-custom{
+  table{
+    font-weight: 300;
+    width: 100%;
+    border-collapse: collapse;
+  }
+  tr{
+    td:first-child{
+      text-align: left;
+    }
+    td:nth-child(2){
+      text-align: right;
+    }
+  }
+}

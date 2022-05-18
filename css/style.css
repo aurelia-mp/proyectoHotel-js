@@ -377,6 +377,35 @@ ul {
   .lista-green span, .contenedorGreen .asideGreen span {
     padding-left: 2rem; }
 
+.contenedorReservar main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center; }
+  .contenedorReservar main header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; }
+    .contenedorReservar main header img {
+      margin: 3rem; }
+    .contenedorReservar main header span {
+      color: #f1bd13;
+      font-weight: 800; }
+  .contenedorReservar main a {
+    color: #1b9aaa; }
+  .contenedorReservar main section {
+    width: 100%;
+    margin-bottom: 3rem; }
+    .contenedorReservar main section h2 {
+      color: #f1bd13;
+      text-transform: uppercase; }
+    .contenedorReservar main section table {
+      font-size: 1.5rem; }
+      .contenedorReservar main section table thead {
+        text-transform: uppercase; }
+
 /* Grid */
 .contenedorContacto {
   display: grid;

@@ -1,0 +1,42 @@
+/* Estilos de la barra de navegación */
+.nav {
+    grid-area: nav; 
+    .navbar-brand{
+      .logo{
+        width: 75%;
+        @media only screen and (max-width: 320px){
+          width: 60%;
+        }
+      }
+    }
+    .navbar-toggler-icon {
+      font-size: $textMd; 
+      @media only screen and (max-width: 320px){
+        font-size: $textSm;
+      }
+    }
+    .navbar-nav{ 
+      .nav-item{
+        .nav-link{
+          color: map-get($paleta, 'main'); 
+          padding-left: 3rem;
+          &:hover{
+            color:map-get($paleta, 'secondary');
+          }
+          @media only screen and (min-width: 992px){
+            font-size: $textSm;
+            margin-left: 1rem;
+            margin-right: 1rem;
+            padding-left: 0;
+          }
+          @media only screen and (max-width: 576px){
+            padding-left: 0.5rem;
+          }
+        }
+      }
+    }
+  }
+  
+.bg-blanco {
+  background-color: map-get($paleta, 'white');
+}

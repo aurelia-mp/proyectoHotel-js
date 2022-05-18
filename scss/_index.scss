@@ -1,0 +1,55 @@
+.contenedorHome{
+	display: grid;
+	grid-template-areas: "nav" "mainHome" "footer";
+	background-image: url(../assets/entrada-vertical.jpg);
+	background-position: center 60%;
+	background-repeat: no-repeat;
+	height: 100vh;
+	grid-template-rows: 10vh 85vh 5vh;
+	/* Ajustes para Galaxy Fold */
+	@media only screen and (max-width: 360px){
+		grid-template-rows: 5vh 90vh 5vh;
+	}
+	@media only screen and (min-width: 1024px){
+		background-image: url(../assets/entrada-horizontal.jpg);
+		background-size: cover;
+		background-position: center 20%;
+		grid-template-rows: 5vh 90vh 5vh;
+	}	
+}
+
+.mainHome{
+	grid-area: mainHome;
+	.homeTitle{
+		position: relative;
+		top: 25%;
+		background-color: transparentize(map-get($paleta, 'light'), $amount: 0.5);
+		text-align: center;
+		padding-bottom: 2rem;
+		@media only screen and (min-width: 1024px){
+			position: relative;
+			background-color: transparent;
+			color: map-get($paleta, 'light');
+			width: 35%;
+			text-align: left;
+			margin-left: 7rem;
+		}
+		h1{
+			font-weight: 700;
+			padding-top: 2rem;
+			margin: 2rem 0;
+			@media only screen and (min-width: 1024px){
+				font-size: $textXxl;
+				line-height: 6rem;
+				margin-bottom: 4rem;
+			}
+		}
+		h2{
+			margin: 2rem 0;
+			@media only screen and (min-width: 1024px){
+				margin-bottom: 4rem;
+			}
+		}
+	}
+}
+

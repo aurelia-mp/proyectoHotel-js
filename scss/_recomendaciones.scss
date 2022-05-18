@@ -1,0 +1,28 @@
+/* Estilo específico para los datos prácticos -- Estilo general en Commons */
+.datosReco{
+    @extend .table-custom;
+    padding-left: 2rem;
+    padding-top: 2rem;
+    margin-top: 2rem;
+    background-color: transparent;
+    font-size: $textSm;
+    td:first-child{
+        text-transform: uppercase;
+        @media only screen and (max-width: 370px){
+          display:none;
+          }
+      }	
+    td:nth-child(2){
+        padding-left: 5rem;
+        @media only screen and (max-width: 370px){
+          padding-left: 0;
+        }
+      }	
+        tr{
+            border-bottom: 1px solid map-get($paleta, 'light');
+            height: 6rem;
+            &:last-child{
+                border-bottom: 0px;
+            }
+    }
+}

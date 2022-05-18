@@ -1,0 +1,62 @@
+/* Grid */
+.contenedorContacto{
+	display: grid;
+	grid-template-areas: "nav" "header" "mainContacto" "mapa" "footer";
+	@media only screen and (min-width: 1024px){
+		grid-template-areas: "nav nav"
+							 "header header"
+							 "mapa mainContacto"
+							 "footer footer";
+		grid-template-columns: repeat(2, 1fr);
+		column-gap: 3rem;
+	}
+}
+
+/* Formulario de contacto */
+.mainContacto{
+	grid-area: mainContacto;
+	@include flex(column, flex-start, stretch);
+	margin-left: 1rem;
+	margin-right: 1rem;
+	font-weight: 300;
+	margin-bottom: 3rem;
+
+	h2{
+		padding: 2rem 0;
+		border-top: 0.5px solid map-get($paleta, 'main');
+		border-bottom: 0.5px solid map-get($paleta, 'main');
+		text-align: center;
+	}
+	.form-select, .form-control{
+		font-size: $textSm;
+		font-weight: 300;
+	}
+	textarea{
+		height: 15vh;
+	}
+	#contacto-botones{
+		button{
+			@media only screen and (max-width: 450px) {
+				width: 100%;
+				margin-top: 1rem;
+				@include flex(row, center, center);
+			}
+		}
+	}
+}
+
+/* Mapa */
+.mapa{
+	grid-area: mapa;
+	margin-bottom: 3rem;
+
+	iframe{
+		width: 100%;
+		height: 50vh;
+		border-width: 0;
+		@media only screen and (min-width: 1024px){
+			height: 100%;
+		}
+
+	}
+}

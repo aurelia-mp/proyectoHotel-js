@@ -1,0 +1,35 @@
+.contenedorReservar{
+    main{
+        @include flex(column, center, center); 
+        text-align: center;
+        header{
+        @include flex(column, center, center);
+        img{
+            margin: 3rem;
+        }
+        span{
+            color: map-get($paleta, 'secondary');
+            font-weight: 800;
+        }
+    }
+        a{
+            color: map-get($paleta, 'link');
+        }
+        section{
+            width: 100%;
+            margin-bottom: 3rem;
+            h2{
+                color:map-get($paleta, 'secondary');
+                text-transform: uppercase;
+            }
+            table{
+                font-size: $textSm;
+                thead{
+                    text-transform: uppercase;
+                }
+            }
+            
+        }
+    }
+    }
+    
