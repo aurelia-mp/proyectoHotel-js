@@ -185,7 +185,7 @@ ul {
   border: 0.5px solid #212a31; }
 
 /* Estilos de botones */
-.boton, .btn-grad, #botonHome, .btn-grad-reset {
+.boton, .btn-grad, #botonHome, .btn-cotizar, .btn-grad-reset {
   border: none;
   padding: 1.5rem 3rem;
   text-align: center;
@@ -198,12 +198,12 @@ ul {
   color: #212a31;
   white-space: normal;
   word-wrap: break-word; }
-  .boton:hover, .btn-grad:hover, #botonHome:hover, .btn-grad-reset:hover {
+  .boton:hover, .btn-grad:hover, #botonHome:hover, .btn-cotizar:hover, .btn-grad-reset:hover {
     background-position: right center;
     text-decoration: none;
     transform: scale(1.03); }
 
-.btn-grad, #botonHome {
+.btn-grad, #botonHome, .btn-cotizar {
   background-image: linear-gradient(to right, #f1bd13, #f8ca38 51%, #ffd753 100%); }
 
 .btn-grad-reset {
@@ -393,15 +393,35 @@ ul {
   .contenedorReservar main a {
     color: #1b9aaa; }
   .contenedorReservar main section {
-    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
     margin-bottom: 3rem; }
     .contenedorReservar main section h2 {
       color: #f1bd13;
-      text-transform: uppercase; }
+      text-transform: uppercase;
+      margin-bottom: 0; }
     .contenedorReservar main section table {
       font-size: 1.5rem; }
       .contenedorReservar main section table thead {
         text-transform: uppercase; }
+    .contenedorReservar main section #formulario {
+      margin: 3rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center; }
+      .contenedorReservar main section #formulario label {
+        font-size: 1.5rem; }
+      .contenedorReservar main section #formulario .row {
+        width: 60%; }
+    .contenedorReservar main section #botonConfirmar,
+    .contenedorReservar main section #botonReset {
+      margin: 1rem auto; }
+
+.oculto {
+  display: none; }
 
 /* Grid */
 .contenedorContacto {

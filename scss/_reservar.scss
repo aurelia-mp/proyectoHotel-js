@@ -12,11 +12,12 @@
             color: map-get($paleta, 'link');
         }
         section{
-            width: 100%;
+            @include flex(column, center, stretch);
             margin-bottom: 3rem;
             h2{
                 color:map-get($paleta, 'secondary');
                 text-transform: uppercase;
+                margin-bottom: 0;
             }
             table{
                 font-size: $textSm;
@@ -24,8 +25,27 @@
                     text-transform: uppercase;
                 }
             }
-            
+            #formulario{
+                margin: 3rem;
+                @include flex(column, center, center);
+                label{
+                    font-size: $textSm;
+                }
+                .row{
+                    width: 60%;
+                }
+           }
+            #botonConfirmar,
+            #botonReset{
+                margin: 1rem auto;
+            } 
         }
+        
     }
-    }
+
+}
+
+.oculto{
+    display: none;
+}
     

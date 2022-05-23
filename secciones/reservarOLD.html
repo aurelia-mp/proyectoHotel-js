@@ -43,52 +43,15 @@
             </header>
 
             <div id="principalReservar">
-                <section>
-                    <h2 class="my-5">Nuestras habitaciones</h2>
-                    <div id="habitaciones" class="row justify-content-lg-between justify-content-center mx-3 px-5" data-aos="fade-up">
-
-                    </div>
-                </section>
-
-                <section id="divCotizacion">
-                    <form id="formulario">
-                        <h2 class="mb-5">Para cotizar tu estadía, por favor ingresá los siguientes datos</h2>
-                        <div class="row">
-                            <!-- Campo nombre-->
-                            <label for="nombre" class="form-label">Nombre Completo</label>
-                            <input type="text" class="form-control" id="nombre" required>
-
-                            <!-- Campo categoría-->
-                            <label for="menuCategoria" class="form-label">¿En qué categoría te querrías hospedar?</label>
-                            <select class="form-select" aria-label="Elegir una categoría" id="menuCategoria" required>
-                                <option selected>Elegí una categoría</option>
-                                <!-- INSERTA OPCIONES DE FORMA DINÁMICA VIA JS -->
-                            </select>
-                        </div>
-                        
-                        <div class="row mb-4">
-                            <!-- Campo fecha check in-->
-                            <label for="fechaCheckIn" class="form-label">Fecha de llegada</label>
-                            <input type="date" class="form-control" id="fechaCheckIn" required>
-                    
-                            <!-- Campo cantidad de noches-->
-                            <label for="cantNoches" class="form-label">Cantidad de noches</label>
-                            <input type="number" min="1" class="form-control" id="cantNoches" required> 
-                        </div>
-
-                        <button type="submit" class="btn btn-grad mb-5">Submit</button>
-                    </form>
-                    <div id="botones" class="oculto">
-                        <button id="botonConfirmar" class="btn-grad">Confirmar la reserva</button>
-                        <button id="botonReset" class="btn-grad-reset">Volver a cotizar</button>
-                    </div>
+                <section id="habitaciones">
+                    <h2 class="my-5">Nuestras tarifas por categoría</h2>
                 </section>
             </div>
             
-            <div class="oculto" id="saludo">            
-                <p >¡Gracias <span id="nombrePasajero"></span>por elegirnos! ¡Nos vemos pronto en Palo Santo!</p>
+            <div>            
+                <p>¡Gracias <span id="nombrePasajero"></span>por visitarnos! ¡Esperamos recibirte pronto en Palo Santo!</p>
+                <p><a href="../index.html">Volver a la Home</a></p>
             </div>
-            <p><a href="../index.html">Volver a la Home</a></p>
         </main>
 
         
@@ -113,7 +76,7 @@
         </div>
     </footer>	
 
-    <script src="../js/scriptEventos.js"></script>
+    <script src="../js/script.js"></script>
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <!-- End Bootstrap JS -->
