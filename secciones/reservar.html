@@ -35,14 +35,47 @@
         </div>
     </nav>
 
+    <header>
+        <h1 class="text-uppercase titulo--xxl text-center">Bienvenido a nuestro sistema de reservas online</h1>
+        <img src="../assets/patio-noche.jpg" alt="Palo Santo Fachada Verde">
+    </header>
+
     <div class="contenedorReservar">
         <main>
-            <header>
-                <h1 class="text-uppercase titulo--xxl text-center">Cotizar una estadía</h1>
-                <img src="../assets/hotel-verde-1.jpg" alt="Palo Santo Fachada Verde">
-            </header>
+            <div id="menuOperaciones" class="my-5" >
+                <div class="card card1">
+                    <div class="card-body">
+                      <h2 class="card-title">Cotizar una estadía</h2>
+                      <i class="fa-solid fa-bed fa-2xl"></i>
+                      <p class="card-text">Ingresa a nuestro motor de reservas online</p>
+                      
+                    </div>
+                    <button type="button" class="btn btn-dark btn-lg btn-menu w-75" id="opcion1">Empezar</button>
+                  </div>
 
-            <div id="principalReservar">
+                  <div class="card card2">
+                    <div class="card-body">
+                      <h2 class="card-title">Consultar el estado de una reserva</h2>
+                      <i class="fa-solid fa-circle-info fa-2xl"></i>
+                      <p class="card-text">Busca tu reserva por número o con tu nombre</p>
+                      
+                    </div>
+                    <button type="button" class="btn btn-dark btn-lg mx-5 btn-menu w-75" id="opcion2">Consultar</button>    
+                  </div>
+
+                  <!-- <div class="card card3">
+                    <div class="card-body">
+                      <h2 class="card-title">Cancelar una reserva</h2>
+                      <i class="fa-solid fa-circle-xmark fa-2xl"></i>
+                      <p class="card-text">Cancela tu reserva online</p>  
+                    </div>
+                    <button type="button" class="btn btn-dark btn-lg mx-5 btn-menu w-75" id="opcion3">Cancelar</button>
+                  </div>
+                 -->
+            </div>
+            
+
+            <div id="cotizador" class="oculto">
                 <section>
                     <h2 class="my-5">Nuestras habitaciones</h2>
                     <div id="habitaciones" class="row justify-content-lg-between justify-content-center mx-3 px-5" data-aos="fade-up">
@@ -76,7 +109,7 @@
                             <input type="number" min="1" class="form-control" id="cantNoches" required> 
                         </div>
 
-                        <button type="submit" class="btn btn-grad mb-5">Submit</button>
+                        <button id= "botonCotizar" type="submit" class="btn btn-grad mb-5">Submit</button>
                     </form>
                     <div id="botones" class="oculto">
                         <button id="botonConfirmar" class="btn-grad">Confirmar la reserva</button>
@@ -85,20 +118,56 @@
                 </section>
             </div>
             
+            <div id="consultas" class="oculto">
+                <section>
+                    <h2 class="my-5">Consulta el estado de tu reserva</h2>
+                </section>
+
+                <section>
+                        <div id="opcionesConsulta">
+                            <button class="btn btn-grad btn-lg btn-menu w-75 my-3" id="opcionNombre">Buscar por nombre</button>
+                            <button class="btn btn-grad btn-lg btn-menu w-75 my-3" id="opcionId">Buscar por número de reserva</button>
+                        </div>
+
+                        <form id="formNombre" class="oculto">
+                            <div class="row my-3 ">
+                                <!-- Campo nombre-->
+                                <label for="nombreUsuario" class="form-label">Nombre Completo</label>
+                                <input type="text" class="form-control" id="nombreUsuario">
+                            </div>
+                            <button class="btn btn-dark btn-lg my-3" type="submit">Consultar</button>
+                            <!-- <button class="btn btn-light btn-lg my-3 btnConsultaReset" type="reset">Volver</button>-->
+                        </form>
+                        
+                        <form id="formNumero" class="oculto">
+                            <div class="row mb-4" id="numReserva">
+                                <!-- Campo número de reserva-->
+                                <label for="idReserva" class="form-label">Número de reserva</label>
+                                <input type="number" min="1" class="form-control" id="idReserva"> 
+                            </div>
+                            <button class="btn btn-dark btn-lg my-3" type="submit">Consultar</button>
+                            <!-- <button class="btn btn-light btn-lg my-3 btnConsultaReset" type="reset">Volver</button>-->
+                        </form>
+                        <p id="respuestaConsulta"></p>
+                </section>
+
+
+
+            </div>
+
+           
             <div class="oculto" id="saludo">            
                 <p >¡Gracias <span id="nombrePasajero"></span>por elegirnos! ¡Nos vemos pronto en Palo Santo!</p>
             </div>
-            <p><a href="../index.html">Volver a la Home</a></p>
+            <button id="botonVolverInicio" class="btn-grad-reset oculto"><a href=reservar.html>Elegir otra operación</a></button>
         </main>
-
-        
     </div>
 
     <!-- Footer con redes sociales y datos WiFi -->
     <footer class ="footer textWhite bgDark">
         <div>
-            <i class="fa-solid fa-wifi"></i>
-            <span>Red</span> Palo Santo  <span>Contraseña</span> bonpland
+            <!-- <i class="fa-solid fa-wifi"></i>
+            <span>Red</span> Palo Santo  <span>Contraseña</span> bonpland-->
         </div>
         <div class="redes">
             <a href="https://www.facebook.com/PaloSantoHotel" target="_blank">

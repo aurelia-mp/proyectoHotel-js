@@ -8,7 +8,6 @@
     background-size: 200% auto;         
     border-radius: 0.3rem;
     display: inline-block;
-    width: 45%;
     color: map-get($paleta, 'main'); 
     white-space: normal;
     word-wrap: break-word;
@@ -21,11 +20,13 @@
 
 .btn-grad{
     @extend .boton;
+    width: 45%;
     background-image: linear-gradient(to right, map-get($paleta, 'secondary'), #f8ca38  51%, #ffd753  100%);
 }
 
 .btn-grad-reset{
     @extend .boton;
+    width: 45%;
     background-image: linear-gradient(to right, #cccccc 0%, #e0e0e0  51%, map-get($paleta, 'light') 100%)
 }
 
@@ -34,9 +35,4 @@
     font-size: $textXl;
     width: 70%;
     margin: 0;
-}
-
-.btn-cotizar{
-    @extend .btn-grad;
-    
 }

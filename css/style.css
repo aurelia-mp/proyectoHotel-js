@@ -185,7 +185,7 @@ ul {
   border: 0.5px solid #212a31; }
 
 /* Estilos de botones */
-.boton, .btn-grad, #botonHome, .btn-cotizar, .btn-grad-reset {
+.boton, .btn-grad, #botonHome, .btn-grad-reset {
   border: none;
   padding: 1.5rem 3rem;
   text-align: center;
@@ -194,19 +194,20 @@ ul {
   background-size: 200% auto;
   border-radius: 0.3rem;
   display: inline-block;
-  width: 45%;
   color: #212a31;
   white-space: normal;
   word-wrap: break-word; }
-  .boton:hover, .btn-grad:hover, #botonHome:hover, .btn-cotizar:hover, .btn-grad-reset:hover {
+  .boton:hover, .btn-grad:hover, #botonHome:hover, .btn-grad-reset:hover {
     background-position: right center;
     text-decoration: none;
     transform: scale(1.03); }
 
-.btn-grad, #botonHome, .btn-cotizar {
+.btn-grad, #botonHome {
+  width: 45%;
   background-image: linear-gradient(to right, #f1bd13, #f8ca38 51%, #ffd753 100%); }
 
 .btn-grad-reset {
+  width: 45%;
   background-image: linear-gradient(to right, #cccccc 0%, #e0e0e0 51%, whitesmoke 100%); }
 
 #botonHome {
@@ -377,48 +378,79 @@ ul {
   .lista-green span, .contenedorGreen .asideGreen span {
     padding-left: 2rem; }
 
-.contenedorReservar main {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center; }
-  .contenedorReservar main header {
+.contenedorReservar {
+  display: grid;
+  grid-template-areas: "nav" "header" "menuOperaciones" "cotizador" "consultas" "cancelaciones" "saludo" "footer"; }
+  .contenedorReservar h2 {
+    color: #f1bd13;
+    text-transform: uppercase;
+    margin-bottom: 0; }
+  .contenedorReservar main {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center; }
-    .contenedorReservar main header img {
-      margin: 3rem; }
-  .contenedorReservar main a {
-    color: #1b9aaa; }
-  .contenedorReservar main section {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: stretch;
-    margin-bottom: 3rem; }
-    .contenedorReservar main section h2 {
-      color: #f1bd13;
-      text-transform: uppercase;
-      margin-bottom: 0; }
-    .contenedorReservar main section table {
-      font-size: 1.5rem; }
-      .contenedorReservar main section table thead {
-        text-transform: uppercase; }
-    .contenedorReservar main section #formulario {
-      margin: 3rem;
+    align-items: center;
+    text-align: center; }
+    .contenedorReservar main #menuOperaciones {
+      grid-area: "menuOperaciones";
       display: flex;
-      flex-direction: column;
-      justify-content: center;
+      flex-direction: row;
+      justify-content: space-between;
       align-items: center; }
-      .contenedorReservar main section #formulario label {
-        font-size: 1.5rem; }
-      .contenedorReservar main section #formulario .row {
-        width: 60%; }
-    .contenedorReservar main section #botonConfirmar,
-    .contenedorReservar main section #botonReset {
-      margin: 1rem auto; }
+      .contenedorReservar main #menuOperaciones .card {
+        align-items: center;
+        margin-left: 2rem;
+        margin-right: 2rem;
+        width: 40%;
+        height: 400px;
+        padding: 3rem 1rem; }
+        .contenedorReservar main #menuOperaciones .card .card-body {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          align-items: center; }
+        .contenedorReservar main #menuOperaciones .card h2 {
+          margin: 3rem auto; }
+        .contenedorReservar main #menuOperaciones .card p {
+          margin: 3rem auto; }
+        .contenedorReservar main #menuOperaciones .card .btn-menu {
+          font-size: 1.5rem;
+          text-transform: uppercase;
+          padding: 1.5rem;
+          border-radius: 0; }
+    .contenedorReservar main #cotizador {
+      grid-area: "cotizador"; }
+      .contenedorReservar main #cotizador section {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: stretch;
+        margin-bottom: 3rem; }
+        .contenedorReservar main #cotizador section table {
+          font-size: 1.5rem; }
+          .contenedorReservar main #cotizador section table thead {
+            text-transform: uppercase; }
+        .contenedorReservar main #cotizador section #formulario {
+          margin: 3rem;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center; }
+          .contenedorReservar main #cotizador section #formulario label {
+            font-size: 1.5rem; }
+          .contenedorReservar main #cotizador section #formulario .row {
+            width: 60%; }
+        .contenedorReservar main #cotizador section #botonConfirmar,
+        .contenedorReservar main #cotizador section #botonReset {
+          margin: 1rem auto; }
+    .contenedorReservar main #consultas {
+      grid-area: "consultas"; }
+    .contenedorReservar main #cancelaciones {
+      grid-area: "cancelaciones"; }
+    .contenedorReservar main #saludo {
+      grid-area: "saludo"; }
+  .contenedorReservar a {
+    color: #1b9aaa; }
 
 .oculto {
   display: none; }

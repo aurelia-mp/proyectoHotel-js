@@ -1,49 +1,87 @@
 .contenedorReservar{
+    display: grid;
+    grid-template-areas: "nav" "header" "menuOperaciones" "cotizador" "consultas" "cancelaciones" "saludo" "footer";
+    h2{
+        color:map-get($paleta, 'secondary');
+        text-transform: uppercase;
+        margin-bottom: 0;
+    }
     main{
         @include flex(column, center, center); 
         text-align: center;
-        header{
-        @include flex(column, center, center);
-        img{
-            margin: 3rem;
+        #menuOperaciones{
+            grid-area: "menuOperaciones";
+            @include flex(row, space-between, center);
+            .card{
+                align-items: center;
+                margin-left: 2rem;
+                margin-right: 2rem;
+                width: 40%;
+                height: 400px;
+                padding: 3rem 1rem;
+                .card-body{
+                    @include flex(column, space-between, center);
+                }
+                h2{
+                    margin: 3rem auto;
+                }
+                p{
+                    margin: 3rem auto;
+                }
+                .btn-menu{
+                    font-size: $textSm;
+                    text-transform: uppercase;
+                    padding: 1.5rem;
+                    border-radius: 0;
+                }
+            }           
+        }
+        #cotizador{
+            grid-area: "cotizador";
+            section{
+                @include flex(column, center, stretch);
+                margin-bottom: 3rem;
+                
+                table{
+                    font-size: $textSm;
+                    thead{
+                        text-transform: uppercase;
+                    }
+                }
+                #formulario{
+                    margin: 3rem;
+                    @include flex(column, center, center);
+                    label{
+                        font-size: $textSm;
+                    }
+                    .row{
+                        width: 60%;
+                    }
+               }
+                #botonConfirmar,
+                #botonReset{
+                    margin: 1rem auto;
+                } 
+            }
+        }
+        #consultas{
+            grid-area: "consultas";
+        }
+        #cancelaciones{
+            grid-area: "cancelaciones";
+        }
+        #saludo{
+            grid-area: "saludo";
         }
     }
-        a{
-            color: map-get($paleta, 'link');
-        }
-        section{
-            @include flex(column, center, stretch);
-            margin-bottom: 3rem;
-            h2{
-                color:map-get($paleta, 'secondary');
-                text-transform: uppercase;
-                margin-bottom: 0;
-            }
-            table{
-                font-size: $textSm;
-                thead{
-                    text-transform: uppercase;
-                }
-            }
-            #formulario{
-                margin: 3rem;
-                @include flex(column, center, center);
-                label{
-                    font-size: $textSm;
-                }
-                .row{
-                    width: 60%;
-                }
-           }
-            #botonConfirmar,
-            #botonReset{
-                margin: 1rem auto;
-            } 
-        }
+    a{
+        color: map-get($paleta, 'link');
+    }
+    
+        
         
     }
 
-}
 
 .oculto{
     display: none;
