@@ -1,3 +1,8 @@
+.headerReservas{
+    @include flex(column, center, center);
+    margin: 3rem auto;
+}
+
 .contenedorReservar{
     display: grid;
     grid-template-areas: "nav" "header" "menuOperaciones" "cotizador" "consultas" "cancelaciones" "saludo" "footer";
@@ -74,9 +79,9 @@
             grid-area: "saludo";
         }
     }
-    a{
-        color: map-get($paleta, 'link');
-    }
+    // a{
+    //     color: map-get($paleta, 'link');
+    // }
     
         
         

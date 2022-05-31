@@ -378,6 +378,13 @@ ul {
   .lista-green span, .contenedorGreen .asideGreen span {
     padding-left: 2rem; }
 
+.headerReservas {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 3rem auto; }
+
 .contenedorReservar {
   display: grid;
   grid-template-areas: "nav" "header" "menuOperaciones" "cotizador" "consultas" "cancelaciones" "saludo" "footer"; }
@@ -449,8 +456,6 @@ ul {
       grid-area: "cancelaciones"; }
     .contenedorReservar main #saludo {
       grid-area: "saludo"; }
-  .contenedorReservar a {
-    color: #1b9aaa; }
 
 .oculto {
   display: none; }

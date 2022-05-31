@@ -35,9 +35,9 @@
         </div>
     </nav>
 
-    <header>
+    <header class="headerReservas">
         <h1 class="text-uppercase titulo--xxl text-center">Bienvenido a nuestro sistema de reservas online</h1>
-        <img src="../assets/patio-noche.jpg" alt="Palo Santo Fachada Verde">
+        <img src="../assets/hotel-verde-2.jpg" alt="Palo Santo Fachada Verde">
     </header>
 
     <div class="contenedorReservar">
@@ -112,7 +112,7 @@
                         <button id= "botonCotizar" type="submit" class="btn btn-grad mb-5">Submit</button>
                     </form>
                     <div id="botones" class="oculto">
-                        <button id="botonConfirmar" class="btn-grad">Confirmar la reserva</button>
+                        <button id="botonConfirmar" class="btn-grad"><a href="confirmacion.html">Confirmar la reserva</a></button>
                         <button id="botonReset" class="btn-grad-reset">Volver a cotizar</button>
                     </div>
                 </section>
@@ -159,7 +159,7 @@
             <div class="oculto" id="saludo">            
                 <p >¡Gracias <span id="nombrePasajero"></span>por elegirnos! ¡Nos vemos pronto en Palo Santo!</p>
             </div>
-            <button id="botonVolverInicio" class="btn-grad-reset oculto"><a href=reservar.html>Elegir otra operación</a></button>
+            <a href="reservar.html" id="botonVolverInicio" class="btn btn-secondary btn-lg oculto">Elegir otra operación</a>
         </main>
     </div>
 
@@ -182,6 +182,7 @@
         </div>
     </footer>	
 
+    <script src="../js/objetos.js"></script>
     <script src="../js/scriptEventos.js"></script>
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
