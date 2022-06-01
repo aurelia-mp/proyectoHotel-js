@@ -6,10 +6,6 @@ class Habitacion {
         this.tarifaAlta = tarifaAlta;
         this.img = img;
     }
-    // Método para ver las tarifas de la habitacion
-    verTarifas(){
-       return "Tarifas de la habitación " + this.categoria + ": \n" + "Temporada Baja: " + this.tarifaBaja + "\n" + "Temporada Alta: " + this.tarifaAlta; 
-    }
 }
 
 class Reserva {
@@ -70,21 +66,15 @@ let temporadaBaja = [5,6,7,8,9];
 let temporadaAlta = [1,2,3,10,11,12];
 
 // Se cargan 4 reservas de clase Reserva en un array inicial
-let reservas;
 
 const reserva1 = new Reserva(1, "Juan Perez", "01/06/2022", 3, "superior", "confirmada", 300);
 const reserva2 = new Reserva(2, "Mariana Alonso", "05/07/2022", 4, "superior", "confirmada", 400);
 const reserva3 = new Reserva(3, "Martin Gonzalez", "30/09/2022", 1, "standard", "confirmada", 90);
 const reserva4 = new Reserva(4, "Leon Suarez", "03/03/2023", 2, "superior", "cancelada", 200);
 
-//  Actualizar el array reservas con el local storage, si hay nuevos valores
-if (localStorage.getItem("reservas")){
-    reservas = JSON.parse(localStorage.getItem("reservas"));
-}
-else{
-    reservas = []
-    reservas.push(reserva1, reserva2, reserva3, reserva4);
-};
- 
+//  Trae el array de reservas desde el storage o crea un array con las 4 reservas iniciales
+
+let reservas = JSON.parse(localStorage.getItem("reservas")) || [reserva1, reserva2, reserva3, reserva4]
+
 // Se inicializa numeroReserva según el largo del array reservas
 let numeroReserva = reservas.length + 1; 
