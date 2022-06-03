@@ -112,6 +112,7 @@ function cotizarEstadia(e){
     e.preventDefault();
 
     let pasajero = document.querySelector("#nombre").value;
+    let email = document.querySelector("#email").value;
     let numeroCategoria = document.querySelector("#menuCategoria").value;
 
     // Inicializa la variable Hoy con Luxon para tomar validar la fecha de check in. 
@@ -162,7 +163,7 @@ function cotizarEstadia(e){
         cotizacion.innerHTML = `El total de tu estadia de ${cantidadNoches} ${noches} en categoría ${categoria} desde el ${checkIn.toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY)} es de ${totalEstadia}. \nEquivale a una tarifa de ${totalEstadia / cantidadNoches} por noche.`
     
         // Grabar la cotización en un objeto provisorio "Reserva" y en storage
-        let reservaNueva = new Reserva (numeroReserva, pasajero, checkIn, cantidadNoches, categoria, "en curso", totalEstadia);
+        let reservaNueva = new Reserva (numeroReserva, pasajero, email, checkIn, cantidadNoches, categoria, "en curso", totalEstadia);
         localStorage.setItem("quote", JSON.stringify(reservaNueva));
     
         // Mostrar los botones confirmar // reset // volver al inicio
@@ -171,8 +172,9 @@ function cotizarEstadia(e){
         // Al apretar el boton Reset, se borra los datos del formulario y se re-habilita el botón "submit"
         botonCotizacionReset.onclick = () => {
             reiniciarCotizador()
-            // Pre-completa el nombre del pasajero
+            // Pre-completa el nombre del pasajero y su email
             document.querySelector("#nombre").value = pasajero;
+            document.querySelector("#email").value = email;
             botonCotizar.disabled = false;
         };
     }
@@ -248,6 +250,10 @@ function mostrarReservas(array, parametro){
                 let impresionReserva = document.createElement("p")
                 impresionReserva.innerHTML = renderizarReserva(reserva)
                 respuestaConsulta.append(impresionReserva);
+                let id = reserva.numero;          
+                let botonCancelar = document.getElementById(`botonCancelar${id}`);
+                botonCancelar.classList.toggle("oculto");
+                botonCancelar.onclick = () => {cancelar(reserva)}
             })
         }
         }
@@ -265,4 +271,63 @@ function deshabilitarSeccion(seccion){
     for (const boton of bt){
         boton.disabled = true;
     }
+}
+
+function habilitarSeccion(seccion){
+    seccion.style.opacity = 1;
+    let bt = seccion.getElementsByTagName("button");
+    for (const boton of bt){
+        boton.disabled = false;
+    }
+}
+
+function cancelar(reserva){
+    reserva.status="cancelada";
+    console.table(reservas);
+    Swal.fire({
+        title: '¿Estás seguro de querer cancelar tu reserva?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: "red",
+        cancelButtonColor: "grey",
+        confirmButtonText: 'Sí, cancelar'
+      }).then((result) => {
+        // Se solicita el email del usuario para confirmar su identidad antes de cancelar
+        if (result.isConfirmed) {
+            Swal.fire({
+                title: 'Para confirmar, ingresa el email asociado a tu reserva',
+                html: '<input type="email" id="emailIngresado" class="swal2-input" placeholder="email">',
+                confirmButtonText: 'Validar',
+                preConfirm: () => {
+                    let emailIngresado = Swal.getPopup().querySelector("#emailIngresado").value;
+                    if(!emailIngresado){
+                        Swal.showValidationMessage('Por favor ingresa la dirección de email que ingresaste en el momento de reservar')
+                    }
+                    return {emailIngresado: emailIngresado}
+                }
+            }).then((result) => {
+                // Si el email es correcto, la reserva se cancela y se vuelve al inicio del cotizador
+                if (result.value.emailIngresado == reserva.email){
+                    Swal.fire({
+                    title: 'Reserva cancelada!',
+                    text: 'Tu reserva está cancelada. Esperamos recibirte en otra oportunidad',
+                    icon: 'success',
+                    footer: '<a href="reservas.html">Hacer una nueva reserva</a>'
+                    })  
+                    // Volver al inicio
+                    respuestaConsulta.innerHTML=""; 
+                    consultas.classList.toggle("oculto");
+                    botonVolverInicio.classList.toggle("oculto");
+                    habilitarSeccion(menuOperaciones);
+                } 
+                else{
+                    Swal.fire({
+                        title: 'El email no corresponde al que tenemos en sistema',
+                        text: 'Tu reserva sigue activa. Para cancelarla, podés intentar nuevamente con otro email o llamarnos al 11 5280 6100',
+                        icon: 'error'
+                    })
+                }
+            })   
+        }
+      })
 }

@@ -9,9 +9,10 @@ class Habitacion {
 }
 
 class Reserva {
-    constructor(numero, pasajero, checkin, noches, categoria, status, totalEstadia){
+    constructor(numero, pasajero, email, checkin, noches, categoria, status, totalEstadia){
         this.numero = numero;
         this.pasajero = pasajero;
+        this.email = email;
         this.checkin = checkin;
         this.noches = noches;
         this.categoria = categoria;
@@ -45,7 +46,8 @@ function renderizarReserva(reserva){
                 <td>Cantidad de noches</td>
                 <td>Categoria</td>
                 <td>Estado</td>
-                <td>Valor total de la estadía</td>
+                <td>Total estadía</td>
+                <td></td>
             </thead>
             <tbody>
                 <td>${reserva.numero}</td>
@@ -55,6 +57,7 @@ function renderizarReserva(reserva){
                 <td>${reserva.categoria}</td>
                 <td>${reserva.status}</td>
                 <td>${reserva.totalEstadia}</td>
+                <td><button type="button" class="btn btn-danger oculto" id="botonCancelar${reserva.numero}">Cancelar</button></td>
             </tbody> 
         </table>`;
 }
@@ -76,10 +79,10 @@ let temporadaAlta = [1,2,3,10,11,12];
 
 // Se cargan 4 reservas de clase Reserva en un array inicial
 
-const reserva1 = new Reserva(1, "Juan Perez", "2022-06-01", 3, "superior", "confirmada", 300);
-const reserva2 = new Reserva(2, "Mariana Alonso", "2022-07-05", 4, "superior", "confirmada", 400);
-const reserva3 = new Reserva(3, "Martin Gonzalez", "2022-09-30", 1, "standard", "confirmada", 90);
-const reserva4 = new Reserva(4, "Leon Suarez", "2023-03-03", 2, "superior", "cancelada", 200);
+const reserva1 = new Reserva(1, "Juan Perez", "jp@gmail.com", "2022-06-01", 3, "superior", "confirmada", 300);
+const reserva2 = new Reserva(2, "Mariana Alonso", "malonso@hotmail.com", "2022-07-05", 4, "superior", "confirmada", 400);
+const reserva3 = new Reserva(3, "Martin Gonzalez", "mg@yahoo.com.ar", "2022-09-30", 1, "standard", "confirmada", 90);
+const reserva4 = new Reserva(4, "Leon Suarez", "ls111@gmail.com", "2023-03-03", 2, "superior", "cancelada", 200);
 
 //  Trae el array de reservas desde el storage o crea un array con las 4 reservas iniciales
 
