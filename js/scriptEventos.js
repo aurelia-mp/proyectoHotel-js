@@ -22,19 +22,18 @@ let opcionId = document.getElementById("opcionId");
 let respuestaConsulta = document.getElementById("respuestaConsulta");
 let menuOperaciones = document.getElementById("menuOperaciones");
 
-// Mide la altura de los elementos de la parte superior del sitio para poder desplazar la venta hasta la sección siguiente
+// Mide la altura de los elementos de la parte superior del sitio para el scroll
 let alturaNav = document.getElementById("navbar").offsetHeight;
 let alturaHeader=document.getElementById("headerReservas").offsetHeight;
 let alturaMenu = menuOperaciones.offsetHeight;
 
 // Opción 1 del menú : Cotizador
 let opcion1 = document.getElementById("opcion1");
-// Opción 2 del menú: Consultar reserva
-let opcion2 = document.getElementById("opcion2");
-
 opcion1.addEventListener("click", () => deshabilitarSeccion(menuOperaciones));
 opcion1.addEventListener("click", iniciarCotizador);
 
+// Opción 2 del menú: Consultar reserva
+let opcion2 = document.getElementById("opcion2");
 opcion2.addEventListener("click", () => deshabilitarSeccion(menuOperaciones));
 opcion2.addEventListener("click", (e) => consultarReserva(e, reservas));
 
