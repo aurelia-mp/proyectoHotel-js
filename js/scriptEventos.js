@@ -6,8 +6,6 @@ let totalEstadia;
 let pasajero = "";
 let cotizacion;
 let filtro;
-let hoy = new Date();
-hoy= hoy.toLocaleDateString();
 
 // Definición de elementos del DOM
 let contenedorHab = document.getElementById("habitaciones");
@@ -23,6 +21,12 @@ let opcionNombre = document.getElementById("opcionNombre");
 let opcionId = document.getElementById("opcionId");
 let respuestaConsulta = document.getElementById("respuestaConsulta");
 let menuOperaciones = document.getElementById("menuOperaciones");
+
+// Mide la altura de los elementos de la parte superior del sitio para poder desplazar la venta hasta la sección siguiente
+let alturaNav = document.getElementById("navbar").offsetHeight;
+let alturaHeader=document.getElementById("headerReservas").offsetHeight;
+let alturaMenu = menuOperaciones.offsetHeight;
+
 // Opción 1 del menú : Cotizador
 let opcion1 = document.getElementById("opcion1");
 // Opción 2 del menú: Consultar reserva
@@ -96,28 +100,50 @@ function iniciarCotizador(){
     cotizador.classList.toggle("oculto");
     botonVolverInicio.classList.toggle("oculto");
 
+    // Se desplaza a la sección Cotizar
+    window.scrollTo(0, alturaNav+alturaHeader+alturaMenu);
+
     // Al enviar el formulario, se cotiza la estadía con los datos ingresados
     formularioCotizacion.addEventListener("submit", cotizarEstadia);
 }
 
 // Funcion cotizar estadía - Asociada al evento SUBMIT en el formulario de cotización
 function cotizarEstadia(e){
-    console.table(reservas);
+    // console.table(reservas);
     e.preventDefault();
 
     let pasajero = document.querySelector("#nombre").value;
     let numeroCategoria = document.querySelector("#menuCategoria").value;
-    let fechaLlegada = document.querySelector("#fechaCheckIn").valueAsDate;
-    
+
+    // Inicializa la variable Hoy con Luxon para tomar validar la fecha de check in. 
+    // Se modifica para que tome las 0hs de hoy, para permitir reservas para hoy mismo
+    const today = DateTime.now();
+    let hoy = today.startOf('day');
+
+    // Transforma el valor del campo check in en una instancia de Date Time
+    let campoCheckIn = document.getElementById("fechaCheckIn");
+    let checkIn = transformarEnFecha(campoCheckIn.value);
+
     // Validar fecha: No permitir fecha anterior a hoy
-    if(fechaLlegada.toLocaleDateString() < hoy){
-        alert("Ingresar fecha válida");
-        fechaLlegada = document.querySelector("#fechaCheckIn").valueAsDate;
+    if(checkIn  < hoy ){
+        Swal.fire(
+            'Fecha inválida',
+            'Por favor, verifica que la fecha ingresada sea mayor o igual a hoy',
+            'error'
+          )
+        campoCheckIn = document.getElementById("fechaCheckIn");
+        checkIn = transformarEnFecha(campoCheckIn.value);
     }
         
     else{ 
+        // Cálculo de la anticipación de reserva - Se podrá usar a futuro para calcular descuentos por reserva anticipada
+        const Interval = luxon.Interval;
+        let intervalo = Interval.fromDateTimes(hoy, checkIn);
+        let anticipacionReserva = intervalo.length('days');
+
         botonCotizar.disabled=true;
-        let mes = parseInt(fechaLlegada[5] + fechaLlegada[6]);
+
+        let mes = checkIn.month;
         let cantidadNoches = parseInt(document.querySelector("#cantNoches").value);
         let noches = "noche";
     
@@ -134,10 +160,10 @@ function cotizarEstadia(e){
         totalEstadia = temporadaBaja.includes(mes) ? (tarifaBaja * cantidadNoches) : (tarifaAlta * cantidadNoches);
         cotizacion = document.createElement("p");
         formulario.append(cotizacion);
-        cotizacion.innerHTML = `El total de tu estadia de ${cantidadNoches} ${noches} en categoría ${categoria} desde el ${fechaLlegada.toLocaleDateString()} es de ${totalEstadia}. \nEquivale a una tarifa de ${totalEstadia / cantidadNoches} por noche.`
+        cotizacion.innerHTML = `El total de tu estadia de ${cantidadNoches} ${noches} en categoría ${categoria} desde el ${checkIn.toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY)} es de ${totalEstadia}. \nEquivale a una tarifa de ${totalEstadia / cantidadNoches} por noche.`
     
         // Grabar la cotización en un objeto provisorio "Reserva" y en storage
-        let reservaNueva = new Reserva (numeroReserva, pasajero, fechaLlegada.toLocaleDateString(), cantidadNoches, categoria, "en curso", totalEstadia);
+        let reservaNueva = new Reserva (numeroReserva, pasajero, checkIn, cantidadNoches, categoria, "en curso", totalEstadia);
         localStorage.setItem("quote", JSON.stringify(reservaNueva));
     
         // Mostrar los botones confirmar // reset // volver al inicio
@@ -169,6 +195,9 @@ function consultarReserva(e, reservas){
     e.preventDefault();
     botonVolverInicio.classList.toggle("oculto");
     consultas.classList.toggle("oculto");
+
+    // Se desplaza a la sección Consulta
+    window.scrollTo(0, alturaNav+alturaHeader+alturaMenu);
 
     // Mostrar campo nombre o campo número de reserva según la opcion elegida en el checkbox
     opcionNombre.onclick = () => {filtrarReservas(reservas, 1)};
@@ -225,7 +254,7 @@ function mostrarReservas(array, parametro){
         }
 }
 
-// Function para hacer aparecer o desaparecer un elemento 
+// Function para hacer aparecer o desaparecer un elemento - Por ahora no se usa, BORRAR
 function toggleDisplay(elemento){
     (elemento.style.display == "block" || elemento.style.display == "") ? elemento.style.display = "none" : elemento.style.display = "block"; 
 }

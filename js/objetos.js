@@ -24,9 +24,18 @@ class Reserva {
     }
 }
 
+// Inicialización de DateTime para utilizar luxon
+const DateTime = luxon.DateTime;
+
+// Function para transformar un string en una fecha
+function transformarEnFecha(string){
+    return DateTime.fromISO(string)
+}
 // Función que genera el html para renderizar reservas
 
 function renderizarReserva(reserva){
+    // Transforma la fecha en un check in
+    reserva.checkin = transformarEnFecha(reserva.checkin);
     return tablaReserva =  
             `<table class ="table table-light table-hover my-5">
             <thead>
@@ -41,7 +50,7 @@ function renderizarReserva(reserva){
             <tbody>
                 <td>${reserva.numero}</td>
                 <td>${reserva.pasajero}</td>
-                <td>${reserva.checkin}</td>
+                <td>${reserva.checkin.toLocaleString()}</td>
                 <td>${reserva.noches}</td>
                 <td>${reserva.categoria}</td>
                 <td>${reserva.status}</td>
@@ -67,10 +76,10 @@ let temporadaAlta = [1,2,3,10,11,12];
 
 // Se cargan 4 reservas de clase Reserva en un array inicial
 
-const reserva1 = new Reserva(1, "Juan Perez", "01/06/2022", 3, "superior", "confirmada", 300);
-const reserva2 = new Reserva(2, "Mariana Alonso", "05/07/2022", 4, "superior", "confirmada", 400);
-const reserva3 = new Reserva(3, "Martin Gonzalez", "30/09/2022", 1, "standard", "confirmada", 90);
-const reserva4 = new Reserva(4, "Leon Suarez", "03/03/2023", 2, "superior", "cancelada", 200);
+const reserva1 = new Reserva(1, "Juan Perez", "2022-06-01", 3, "superior", "confirmada", 300);
+const reserva2 = new Reserva(2, "Mariana Alonso", "2022-07-05", 4, "superior", "confirmada", 400);
+const reserva3 = new Reserva(3, "Martin Gonzalez", "2022-09-30", 1, "standard", "confirmada", 90);
+const reserva4 = new Reserva(4, "Leon Suarez", "2023-03-03", 2, "superior", "cancelada", 200);
 
 //  Trae el array de reservas desde el storage o crea un array con las 4 reservas iniciales
 
