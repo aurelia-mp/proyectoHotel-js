@@ -73,8 +73,8 @@
                     </div>
                 </section>
 
-                <section id="divCotizacion">
-                    <form id="formulario">
+                <section id="divCotizacion" class="d-flex align-items-center"> 
+                    <form id="formulario" class="w-100">
                         <h2 class="mb-5">Para cotizar tu estadía, por favor ingresá los siguientes datos</h2>
                         <div class="row">
                             <!-- Campo nombre-->
@@ -103,9 +103,14 @@
                             <input type="number" min="1" class="form-control" id="cantNoches" required> 
                         </div>
 
-                        <button id= "botonCotizar" type="submit" class="btn btn-grad mb-5">Submit</button>
+                        <button id= "botonCotizar" type="submit" class="btn btn-grad m-3 w-25">Submit</button>
                     </form>
-                    <div id="botones" class="oculto">
+
+                    <div id="respuestaCotizacion" class=" w-50 p-5 m-3">
+                        <!-- AQUI VA EL PRECIO CONVERTIDO A ARS CON LA API ExchangeRate-->
+                    </div>
+
+                    <div id="botones" class="oculto d-flex w-50 justify-content-center m-3">
                         <button id="botonConfirmar" class="btn-grad"><a href="confirmacion.html">Confirmar la reserva</a></button>
                         <button id="botonReset" class="btn-grad-reset">Volver a cotizar</button>
                     </div>
@@ -144,9 +149,6 @@
                         </form>
                         <p id="respuestaConsulta"></p>
                 </section>
-
-
-
             </div>
 
            

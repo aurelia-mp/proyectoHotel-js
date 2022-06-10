@@ -1,16 +1,12 @@
 // Se inicializan las variables (objetos "RESERVAS" y "HABITACIONES" están en el archivo objetos.js)
-let fechaLlegada;
-let cantidadNoches;
-let mes;
-let totalEstadia;
+let fechaLlegada, cantidadNoches, mes, totalEstadia, cotizacion, filtro;
 let pasajero = "";
-let cotizacion;
-let filtro;
 
 // Definición de elementos del DOM
 let contenedorHab = document.getElementById("habitaciones");
 let cotizador = document.getElementById("cotizador");
 let formularioCotizacion = document.getElementById("formulario");
+let respuestaCotizacion=document.getElementById("respuestaCotizacion")
 let botonesCotizacion = document.getElementById("botones");
 let botonCotizar = document.getElementById("botonCotizar");
 let botonCotizacionReset = document.getElementById("botonReset");
@@ -44,9 +40,18 @@ mostrarHabitaciones(habitaciones)
 insertarCategorias(habitaciones)
 
 // Funcion para insertar cards con las habitaciones
-function mostrarHabitaciones(lista){
+async function mostrarHabitaciones(lista){
     for (const hab of lista){
+        // Crea un div para cada habitación
         let card = document.createElement("div")
+
+        // Se definen los nombres para los IDs de los elementos donde se muestran los precios. Se usan para agregar el precio en ARS
+        let btnTarifaAlta = `btnTarifaAlta${hab.id}`
+        let btnTarifaBaja = `btnTarifaBaja${hab.id}`
+        let rowTarifaAlta = `rowTarifaAlta${hab.id}`
+        let rowTarifaBaja = `rowTarifaBaja${hab.id}`
+
+        // Se crea la card para cada habitación
         card.className= "row gx-5 whiteCard align-items-center flex-lg-column col-lg-6 col-xl-4 mb-3";
 
         card.innerHTML = `<div class="col-md-5 col-lg-12 d-flex justify-content-center">
@@ -60,13 +65,16 @@ function mostrarHabitaciones(lista){
                                 </div>
                                 <div class="card-footer datosReco">
                                     <table>
-                                        <tr>
-                                            <td>Tarifa Temporada Alta</td>
+                                        <tr id=${rowTarifaAlta}>
+                                            <td >Tarifa Temporada Alta</td>
                                             <td>${hab.tarifaAlta}</td>
+                                            <td><button class="btn btn-light" id=${btnTarifaAlta}>Convertir a ARS</button></td>
+                                            <td id="precioARSAlta${hab.id}"><td>
                                         </tr>
-                                        <tr>
+                                        <tr id=${rowTarifaBaja}>
                                             <td>Tarifa Temporada Alta</td>
                                             <td>${hab.tarifaBaja}</td>
+                                            <td><button class="btn btn-light" id=${btnTarifaBaja}>Convertir a ARS</button></td>
                                         </tr>
                                     </table>
                                 </div>
@@ -74,6 +82,23 @@ function mostrarHabitaciones(lista){
                         </div>
         `
         contenedorHab.append(card);
+
+                
+        // Apretando el boton en cada tarifa, se convierten los valores a pesos usando un API
+        let precioARSAlta = document.getElementById(`precioARSAlta${hab.id}`)
+        document.getElementById(`${btnTarifaAlta}`).onclick = async () =>{
+            // let precioARS = document.createElement("div");
+            // let fila = document.getElementById(`${rowTarifaAlta}`)
+            // fila.append(precioARS)
+            await (convertirARS(hab.tarifaAlta, precioARSAlta));
+        }
+        
+        document.getElementById(`${btnTarifaBaja}`).onclick = async () =>{
+            let precioARS = document.createElement("div");
+            let fila = document.getElementById(`${rowTarifaBaja}`)
+            fila.append(precioARS)
+            await (convertirARS(hab.tarifaBaja, precioARS));
+        }
     }
 }
 
@@ -158,10 +183,20 @@ function cotizarEstadia(e){
         
         // Cotiza la estadía y devuelve el total
         totalEstadia = temporadaBaja.includes(mes) ? (tarifaBaja * cantidadNoches) : (tarifaAlta * cantidadNoches);
-        cotizacion = document.createElement("p");
-        formulario.append(cotizacion);
-        cotizacion.innerHTML = `El total de tu estadia de ${cantidadNoches} ${noches} en categoría ${categoria} desde el ${checkIn.toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY)} es de ${totalEstadia}. \nEquivale a una tarifa de ${totalEstadia / cantidadNoches} por noche.`
-    
+        cotizacion = document.createElement("div");
+        respuestaCotizacion.append(cotizacion);
+        respuestaCotizacion.classList.add("whiteCard")
+        cotizacion.innerHTML = `
+                                <p class=>El total de tu estadia de ${cantidadNoches} ${noches} en categoría ${categoria} desde el ${checkIn.toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY)} es de ${totalEstadia}.
+                                Equivale a una tarifa de ${totalEstadia / cantidadNoches} por noche.</p>
+                                <button class="btn btn-light" id="botonConvertir">Convertir a ARS</button>
+                                `
+        let botonConvertir = document.querySelector("#botonConvertir")
+        let bloquePrecio = document.getElementById("bloquePrecio")
+        botonConvertir.onclick = () => {
+            convertirARS(totalEstadia, bloquePrecio)
+         };
+
         // Grabar la cotización en un objeto provisorio "Reserva" y en storage
         let reservaNueva = new Reserva (numeroReserva, pasajero, email, checkIn, cantidadNoches, categoria, "en curso", totalEstadia);
         localStorage.setItem("quote", JSON.stringify(reservaNueva));
@@ -183,7 +218,8 @@ function cotizarEstadia(e){
 function reiniciarCotizador(){
     // Borra el elemento del HTML con la coti existente, si la hay
     cotizacion && cotizacion.remove();
-
+    seccionCotizacion.innerHTML="";
+    respuestaCotizacion.classList.remove("whiteCard");
     botonesCotizacion.classList.toggle("oculto");
     formulario.reset();
     botonCotizar.disabled=false;
@@ -331,3 +367,24 @@ function cancelar(reserva){
         }
       })
 }
+
+//  CONVERSION MONEDA DESDE LA API EXCHANGE RATE
+function convertirARS(importeEnUSD, bloque){
+    let APIurl = `https://v6.exchangerate-api.com/v6/d3e8c7cc7e3c934b8bf6b12b/latest/USD`
+
+    fetch(APIurl)
+        .then(response => response.json())
+        .then(result => {
+            let tipoCambio = result.conversion_rates.ARS;
+            let importeEnARS = new Intl.NumberFormat("en-US", {style:"currency", currency:"USD"}).format(importeEnUSD*tipoCambio);
+            console.log("Importe en ARS: " + importeEnARS);
+            mostrarTarifaARS(importeEnUSD, importeEnARS, bloque)
+        })
+        .catch(error => console.log('error ', error))
+}
+
+function mostrarTarifaARS(importeEnUSD, importeEnARS, bloque){
+    let texto = `USD ${importeEnUSD} = AR${importeEnARS} a tipo de cambio de hoy ${DateTime.now().toLocaleString()}`
+    bloque.innerHTML = `<p class="small text-muted">${texto}</p>`;
+}
+

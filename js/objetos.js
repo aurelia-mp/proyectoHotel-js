@@ -1,5 +1,6 @@
 class Habitacion {
-    constructor(categoria, descripcion, tarifaBaja, tarifaAlta, img){
+    constructor(id, categoria, descripcion, tarifaBaja, tarifaAlta, img){
+        this.id = id;
         this.categoria = categoria;
         this.descripcion = descripcion;
         this.tarifaBaja = tarifaBaja;
@@ -65,9 +66,9 @@ function renderizarReserva(reserva){
 // INICIALIZACIÓN DE VARIABLES
 
 // Se cargan tres habitaciones de clase Habitacion en un array
-const standard = new Habitacion("Standard", "Habitación doble matrimonial, con vistas a la ciudad", 90, 100, "../assets/standard.jpg");
-const superior = new Habitacion("Superior", "Habitación ubicada en los pisos superiores, con vistas al jardín", 110, 140, "../assets/superior.jpg");
-const suite = new Habitacion("Suite", "Suite de dos ambientes con terraza y jacuzzi", 150, 300, "../assets/suite.jpg");
+const standard = new Habitacion(1, "Standard", "Habitación doble matrimonial, con vistas a la ciudad", 90, 100, "../assets/standard.jpg");
+const superior = new Habitacion(2, "Superior", "Habitación ubicada en los pisos superiores, con vistas al jardín", 110, 140, "../assets/superior.jpg");
+const suite = new Habitacion(3, "Suite", "Suite de dos ambientes con terraza y jacuzzi", 150, 300, "../assets/suite.jpg");
 
 const habitaciones = [];
 
