@@ -88,13 +88,15 @@
                         <h2 class="mb-5">Para cotizar tu estadía, por favor ingresá los siguientes datos</h2>
                         <div class="row">
                             <!-- Campo nombre-->
-                            <label for="nombre" class="form-label">Nombre Completo</label>
-                            <input type="text" class="form-control" id="nombre" required>
-
+                            <div class="col">
+                                <label for="nombre" class="form-label">Nombre Completo</label>
+                                <input type="text" class="form-control" id="nombre" required>
+                            </div>
                             <!-- Campo email-->
-                            <label for="email" class="form-label">Dirección de mail</label>
-                            <input type="email" class="form-control" id="email" required>
-
+                            <div class="col">
+                                <label for="email" class="form-label">Dirección de mail</label>
+                                <input type="email" class="form-control" id="email" required>
+                            </div>
                             <!-- Campo categoría-->
                             <label for="menuCategoria" class="form-label">¿En qué categoría te querrías hospedar?</label>
                             <select class="form-select" aria-label="Elegir una categoría" id="menuCategoria" required>
@@ -104,26 +106,30 @@
                         </div>
                         
                         <div class="row mb-4">
+                            <div class="col">
                             <!-- Campo fecha check in-->
-                            <label for="fechaCheckIn" class="form-label">Fecha de llegada</label>
-                            <input type="date" class="form-control" id="fechaCheckIn" required>
-                    
-                            <!-- Campo cantidad de noches-->
-                            <label for="cantNoches" class="form-label">Cantidad de noches</label>
-                            <input type="number" min="1" class="form-control" id="cantNoches" required> 
+                                <label for="fechaCheckIn" class="form-label">Fecha de llegada</label>
+                                <input type="date" class="form-control" id="fechaCheckIn" required>
+                            </div>
+                            <!-- Campo fecha check out-->
+                            <div class="col">
+                            <label for="fechaCheckOut" class="form-label">Fecha de salida</label>
+                            <input type="date" class="form-control" id="fechaCheckOut" required>
+                        </div>
+                            
                         </div>
 
                         <button id= "botonCotizar" type="submit" class="btn btn-grad m-3 w-25">Submit</button>
                     </form>
 
-                    <div id="respuestaCotizacion" class=" w-50 p-5 m-3">
+                    <div id="respuestaCotizacion" class="w-50 p-5 m-3">
                         <div id="bloquePrecio">
                             <!-- AQUI VA EL PRECIO CONVERTIDO A ARS CON UNA API-->
                         </div>
                         
                     </div>
 
-                    <div id="botones" class="oculto d-flex w-50 justify-content-center m-3">
+                    <div id="botones" class="d-flex w-50 justify-content-center m-3">
                         <button id="botonConfirmar" class="btn-grad"><a href="confirmacion.html">Confirmar la reserva</a></button>
                         <button id="botonReset" class="btn-grad-reset">Volver a cotizar</button>
                     </div>
@@ -163,11 +169,7 @@
                         <p id="respuestaConsulta"></p>
                 </section>
             </div>
-
-           
-            <!-- <div class="oculto" id="saludo">            
-                <p >¡Gracias <span id="nombrePasajero"></span>por elegirnos! ¡Nos vemos pronto en Palo Santo!</p>
-            </div> -->
+            
             <a href="reservar.html" id="botonVolverInicio" class="btn btn-secondary btn-lg oculto">Elegir otra operación</a>
         </main>
     </div>
@@ -199,7 +201,7 @@
      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
      <!-- Scripts propios -->
     <script src="../js/objetos.js"></script>
-    <script src="../js/scriptEventos.js"></script>
+    <script src="../js/script.js"></script>
    
 </body>
 </html>

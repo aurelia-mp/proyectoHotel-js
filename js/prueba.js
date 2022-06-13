@@ -3,6 +3,8 @@ let fechaLlegada, cantidadNoches, mes, totalEstadia, cotizacion, filtro, tipoCam
 let pasajero = "";
 let moneda = "USD";
 
+let APIurl = `https://api-dolar-argentina.herokuapp.com/api/dolaroficial`;
+
 // Definición de elementos del DOM
 let contenedorHab = document.getElementById("habitaciones");
 let cotizador = document.getElementById("cotizador");
@@ -34,16 +36,16 @@ let opcion2 = document.getElementById("opcion2");
 opcion2.addEventListener("click", () => deshabilitarSeccion(menuOperaciones));
 opcion2.addEventListener("click", (e) => consultarReserva(e, reservas));
 
+// Se crea una lista de habitaciones en forma de cards, con precios en ARS o USD  a elección
+calcularTarifasHabitaciones()
+
+// Genera dinámicamente el dropdown en el formulario de cotización para elegir la categoría de habitación
+insertarCategorias(habitaciones)
+
 //////////////////////////
 // OPCION 1: COTIZADOR //
 /////////////////////////
-function iniciarCotizador(){
-    // Agrega una lista de habitaciones en forma de cards, con precios en ARS o USD  a elección
-    calcularTarifasHabitaciones()
-
-    // Genera dinámicamente el dropdown en el formulario de cotización para elegir la categoría de habitación
-    insertarCategorias(habitaciones)
-
+function iniciarCotizador(){    
     // Aparece el cotizador y el boton para elegir otra operación
     cotizador.classList.toggle("oculto");
     botonVolverInicio.classList.toggle("oculto");
@@ -73,15 +75,29 @@ function cotizarEstadia(e){
     let campoCheckIn = document.getElementById("fechaCheckIn");
     let checkIn = transformarEnFecha(campoCheckIn.value);
 
-    // Validar fecha: No permitir fecha anterior a hoy
+    let campoCheckOut = document.getElementById("fechaCheckOut");
+    let checkOut = transformarEnFecha(campoCheckOut.value);
+
+    // Validar fecha check in: No permitir fecha anterior a hoy
     if(checkIn  < hoy ){
         Swal.fire(
-            'Fecha inválida',
+            'Fecha de llegada inválida',
             'Por favor, verifica que la fecha ingresada sea mayor o igual a hoy',
             'error'
           )
         campoCheckIn = document.getElementById("fechaCheckIn");
         checkIn = transformarEnFecha(campoCheckIn.value);
+    }
+
+    // Validar fecha check out: No permitir fecha anterior al check in
+    else if(checkOut  <= checkIn ){
+        Swal.fire(
+            'Fecha de salida inválida',
+            'Por favor, verifica que la fecha de salida ingresada sea posterior a la fecha de llegada',
+            'error'
+            )
+        campoCheckOut = document.getElementById("fechaCheckOut");
+        checkOut = transformarEnFecha(campoCheckOut.value);
     }
         
     else{ 
@@ -93,7 +109,9 @@ function cotizarEstadia(e){
         botonCotizar.disabled=true;
 
         let mes = checkIn.month;
-        let cantidadNoches = parseInt(document.querySelector("#cantNoches").value);
+        let intervaloNoches = Interval.fromDateTimes(checkIn, checkOut);
+        let cantidadNoches = intervaloNoches.length('days');
+        // let cantidadNoches = parseInt(document.querySelector("#cantNoches").value);
         let noches = "noche";
     
         // Agrega un s a "noche" si son más de 1 noche
@@ -132,8 +150,8 @@ function cotizarEstadia(e){
         localStorage.setItem("quote", JSON.stringify(reservaNueva));
     
         // Mostrar los botones confirmar // reset // volver al inicio
-        botonesCotizacion.classList.toggle("oculto"); 
-    
+        // botonesCotizacion.classList.toggle("oculto"); 
+
         // Al apretar el boton Reset, se borra los datos del formulario y se re-habilita el botón "submit"
         botonCotizacionReset.onclick = () => {
             reiniciarCotizador()
@@ -317,8 +335,6 @@ function habilitarSeccion(seccion){
 
 
 //  CONVERSION MONEDA DESDE LA API DOLAR ARGENTINA
-let APIurl = `https://api-dolar-argentina.herokuapp.com/api/dolaroficial`
-
 // Convierte las tarifas en USD de la lista de habitaciones a ARS
 function calcularTarifasHabitaciones(){
     fetch(APIurl)

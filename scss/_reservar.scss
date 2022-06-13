@@ -68,6 +68,11 @@
                     margin: 1rem auto;
                 } 
             }
+            #divCotizacion{
+                #botones{
+                    display:none;
+                }
+            }
         }
         #consultas{
             grid-area: "consultas";
