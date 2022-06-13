@@ -1,6 +1,7 @@
 // Se inicializan las variables (objetos "RESERVAS" y "HABITACIONES" están en el archivo objetos.js)
-let fechaLlegada, cantidadNoches, mes, totalEstadia, cotizacion, filtro;
+let fechaLlegada, cantidadNoches, mes, totalEstadia, cotizacion, filtro, tipoCambio;
 let pasajero = "";
+let moneda = "USD";
 
 // Definición de elementos del DOM
 let contenedorHab = document.getElementById("habitaciones");
@@ -33,93 +34,16 @@ let opcion2 = document.getElementById("opcion2");
 opcion2.addEventListener("click", () => deshabilitarSeccion(menuOperaciones));
 opcion2.addEventListener("click", (e) => consultarReserva(e, reservas));
 
-// Agrega una lista de habitaciones en forma de cards
-mostrarHabitaciones(habitaciones)
-
-// Genera dinámicamente el dropdown para elegir la categoría de habitación
-insertarCategorias(habitaciones)
-
-// Funcion para insertar cards con las habitaciones
-async function mostrarHabitaciones(lista){
-    for (const hab of lista){
-        // Crea un div para cada habitación
-        let card = document.createElement("div")
-
-        // Se definen los nombres para los IDs de los elementos donde se muestran los precios. Se usan para agregar el precio en ARS
-        let btnTarifaAlta = `btnTarifaAlta${hab.id}`
-        let btnTarifaBaja = `btnTarifaBaja${hab.id}`
-        let rowTarifaAlta = `rowTarifaAlta${hab.id}`
-        let rowTarifaBaja = `rowTarifaBaja${hab.id}`
-
-        // Se crea la card para cada habitación
-        card.className= "row gx-5 whiteCard align-items-center flex-lg-column col-lg-6 col-xl-4 mb-3";
-
-        card.innerHTML = `<div class="col-md-5 col-lg-12 d-flex justify-content-center">
-                            <img src="${hab.img}" class="img-fluid rounded-start" alt="Foto de una habitacion ${hab.categoria}">
-                            </div>
-                            <div class="col-md-7 col-lg-12">
-                            <div class="card-body">
-                                <h3 class="card-title titulo--xl text-uppercase">${hab.categoria}</h3>
-                                <div class="card-text fw-light">
-                                    <p>${hab.descripcion}</p>
-                                </div>
-                                <div class="card-footer datosReco">
-                                    <table>
-                                        <tr id=${rowTarifaAlta}>
-                                            <td >Tarifa Temporada Alta</td>
-                                            <td>${hab.tarifaAlta}</td>
-                                            <td><button class="btn btn-light" id=${btnTarifaAlta}>Convertir a ARS</button></td>
-                                            <td id="precioARSAlta${hab.id}"><td>
-                                        </tr>
-                                        <tr id=${rowTarifaBaja}>
-                                            <td>Tarifa Temporada Alta</td>
-                                            <td>${hab.tarifaBaja}</td>
-                                            <td><button class="btn btn-light" id=${btnTarifaBaja}>Convertir a ARS</button></td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-        `
-        contenedorHab.append(card);
-
-                
-        // Apretando el boton en cada tarifa, se convierten los valores a pesos usando un API
-        let precioARSAlta = document.getElementById(`precioARSAlta${hab.id}`)
-        document.getElementById(`${btnTarifaAlta}`).onclick = async () =>{
-            // let precioARS = document.createElement("div");
-            // let fila = document.getElementById(`${rowTarifaAlta}`)
-            // fila.append(precioARS)
-            await (convertirARS(hab.tarifaAlta, precioARSAlta));
-        }
-        
-        document.getElementById(`${btnTarifaBaja}`).onclick = async () =>{
-            let precioARS = document.createElement("div");
-            let fila = document.getElementById(`${rowTarifaBaja}`)
-            fila.append(precioARS)
-            await (convertirARS(hab.tarifaBaja, precioARS));
-        }
-    }
-}
-
-// Function insertarCategorias para el dropdown del formulario de cotizacion
-function insertarCategorias(lista){
-    let menu = document.getElementById("menuCategoria");
-    let counter = 0
-
-    for (const habitacion of lista){
-        let opcion = document.createElement("option")
-        opcion.value= counter;
-        opcion.innerText=`${habitacion.categoria}`;
-        counter++;
-        menu.append(opcion);
-    }
-}
-
 //////////////////////////
 // OPCION 1: COTIZADOR //
 /////////////////////////
 function iniciarCotizador(){
+    // Agrega una lista de habitaciones en forma de cards, con precios en ARS o USD  a elección
+    calcularTarifasHabitaciones()
+
+    // Genera dinámicamente el dropdown en el formulario de cotización para elegir la categoría de habitación
+    insertarCategorias(habitaciones)
+
     // Aparece el cotizador y el boton para elegir otra operación
     cotizador.classList.toggle("oculto");
     botonVolverInicio.classList.toggle("oculto");
@@ -185,19 +109,25 @@ function cotizarEstadia(e){
         totalEstadia = temporadaBaja.includes(mes) ? (tarifaBaja * cantidadNoches) : (tarifaAlta * cantidadNoches);
         cotizacion = document.createElement("div");
         respuestaCotizacion.append(cotizacion);
-        respuestaCotizacion.classList.add("whiteCard")
+        respuestaCotizacion.classList.add("whiteCard");
         cotizacion.innerHTML = `
-                                <p class=>El total de tu estadia de ${cantidadNoches} ${noches} en categoría ${categoria} desde el ${checkIn.toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY)} es de ${totalEstadia}.
-                                Equivale a una tarifa de ${totalEstadia / cantidadNoches} por noche.</p>
+                                <p class=>El total de tu estadia de ${cantidadNoches} ${noches} en categoría ${categoria} desde el ${checkIn.toLocaleString(DateTime.DATE_MED_WITH_WEEKDAY)} es de USD ${totalEstadia}.
+                                Equivale a una tarifa de USD ${totalEstadia / cantidadNoches} por noche.</p>
                                 <button class="btn btn-light" id="botonConvertir">Convertir a ARS</button>
                                 `
+
+        // Permite ver el importe en pesos argentinos
         let botonConvertir = document.querySelector("#botonConvertir")
         let bloquePrecio = document.getElementById("bloquePrecio")
+
         botonConvertir.onclick = () => {
-            convertirARS(totalEstadia, bloquePrecio)
+            mostrarCotiPesos(totalEstadia, bloquePrecio)
+
+            // Desplaza el bloque después del bloque cotización
+            cotizacion.appendChild(bloquePrecio)
          };
 
-        // Grabar la cotización en un objeto provisorio "Reserva" y en storage
+        // Graba la cotización en un objeto provisorio "Reserva" y en storage para retomarla en la pantalla siguiente
         let reservaNueva = new Reserva (numeroReserva, pasajero, email, checkIn, cantidadNoches, categoria, "en curso", totalEstadia);
         localStorage.setItem("quote", JSON.stringify(reservaNueva));
     
@@ -212,6 +142,20 @@ function cotizarEstadia(e){
             document.querySelector("#email").value = email;
             botonCotizar.disabled = false;
         };
+    }
+}
+
+// Function insertarCategorias para el dropdown del formulario de cotizacion
+function insertarCategorias(lista){
+    let menu = document.getElementById("menuCategoria");
+    let counter = 0
+
+    for (const habitacion of lista){
+        let opcion = document.createElement("option")
+        opcion.value= counter;
+        opcion.innerText=`${habitacion.categoria}`;
+        counter++;
+        menu.append(opcion);
     }
 }
 
@@ -295,28 +239,6 @@ function mostrarReservas(array, parametro){
         }
 }
 
-// Function para hacer aparecer o desaparecer un elemento - Por ahora no se usa, BORRAR
-function toggleDisplay(elemento){
-    (elemento.style.display == "block" || elemento.style.display == "") ? elemento.style.display = "none" : elemento.style.display = "block"; 
-}
-
-// Function para pasar una sección a "DESHABILITADA" - Cambia la opacidad y deshabilita los botones
-function deshabilitarSeccion(seccion){
-    seccion.style.opacity = 0.5;
-    let bt = seccion.getElementsByTagName("button");
-    for (const boton of bt){
-        boton.disabled = true;
-    }
-}
-
-function habilitarSeccion(seccion){
-    seccion.style.opacity = 1;
-    let bt = seccion.getElementsByTagName("button");
-    for (const boton of bt){
-        boton.disabled = false;
-    }
-}
-
 function cancelar(reserva){
     reserva.status="cancelada";
     console.table(reservas);
@@ -368,23 +290,127 @@ function cancelar(reserva){
       })
 }
 
-//  CONVERSION MONEDA DESDE LA API EXCHANGE RATE
-function convertirARS(importeEnUSD, bloque){
-    let APIurl = `https://v6.exchangerate-api.com/v6/d3e8c7cc7e3c934b8bf6b12b/latest/USD`
+////////////////////////////////////////////////////////
+// FUNCIONES PARA HABILITAR Y DESHABILITAR SECCIONES //
+///////////////////////////////////////////////////////
+// Function para hacer aparecer o desaparecer un elemento - Por ahora no se usa, BORRAR
+function toggleDisplay(elemento){
+    (elemento.style.display == "block" || elemento.style.display == "") ? elemento.style.display = "none" : elemento.style.display = "block"; 
+}
 
+// Function para pasar una sección a "DESHABILITADA" - Cambia la opacidad y deshabilita los botones
+function deshabilitarSeccion(seccion){
+    seccion.style.opacity = 0.5;
+    let bt = seccion.getElementsByTagName("button");
+    for (const boton of bt){
+        boton.disabled = true;
+    }
+}
+
+function habilitarSeccion(seccion){
+    seccion.style.opacity = 1;
+    let bt = seccion.getElementsByTagName("button");
+    for (const boton of bt){
+        boton.disabled = false;
+    }
+}
+
+
+//  CONVERSION MONEDA DESDE LA API DOLAR ARGENTINA
+let APIurl = `https://api-dolar-argentina.herokuapp.com/api/dolaroficial`
+
+// Convierte las tarifas en USD de la lista de habitaciones a ARS
+function calcularTarifasHabitaciones(){
     fetch(APIurl)
         .then(response => response.json())
         .then(result => {
-            let tipoCambio = result.conversion_rates.ARS;
-            let importeEnARS = new Intl.NumberFormat("en-US", {style:"currency", currency:"USD"}).format(importeEnUSD*tipoCambio);
-            console.log("Importe en ARS: " + importeEnARS);
-            mostrarTarifaARS(importeEnUSD, importeEnARS, bloque)
+            tipoCambio = result.compra;
+            console.log("Tipo de cambio ARS/USD " + tipoCambio);
+            mostrarHabitaciones();        
         })
         .catch(error => console.log('error ', error))
 }
 
-function mostrarTarifaARS(importeEnUSD, importeEnARS, bloque){
-    let texto = `USD ${importeEnUSD} = AR${importeEnARS} a tipo de cambio de hoy ${DateTime.now().toLocaleString()}`
+function mostrarHabitaciones(){
+    for (const hab of habitaciones){
+        // Se crea la card para cada habitación
+        let card = document.createElement("div")
+
+        card.className= "row gx-5 whiteCard align-items-center flex-lg-column col-lg-6 col-xl-4 mb-3";
+
+        card.innerHTML = `<div class="col-md-5 col-lg-12 d-flex justify-content-center">
+                            <img src="${hab.img}" class="img-fluid rounded-start" alt="Foto de una habitacion ${hab.categoria}">
+                            </div>
+                            <div class="col-md-7 col-lg-12">
+                            <div class="card-body">
+                                <h3 class="card-title titulo--xl text-uppercase">${hab.categoria}</h3>
+                                <div class="card-text fw-light">
+                                    <p>${hab.descripcion}</p>
+                                </div>
+                                <div class="card-footer datosReco">
+                                    <table>
+                                        <tr>
+                                            <td >Tarifa Temporada Alta</td>
+                                            <td id="tarifaAlta${hab.id}">USD ${hab.tarifaAlta}</td>
+                                        
+                                        </tr>
+                                        <tr>
+                                            <td>Tarifa Temporada Alta</td>
+                                            <td id="tarifaBaja${hab.id}">USD ${hab.tarifaBaja}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+        `
+        contenedorHab.append(card);
+    }
+
+    let moneda, tarifaAltaPesos, tarifaBajaPesos;
+    let seleccion = document.querySelector("#selectMoneda");
+
+    seleccion.onchange = (  ) => {
+        moneda = seleccion.value;
+        for (const hab of habitaciones){
+            let filaTarifaAlta = document.getElementById(`tarifaAlta${hab.id}`);
+            let filaTarifaBaja = document.getElementById(`tarifaBaja${hab.id}`);
+
+            if (moneda == "ARS"){
+                // Calcular los precios de las habitaciones en AR$
+                // tarifaAltaPesos = (tipoCambio * hab.tarifaAlta).toFixed(2);
+
+                tarifaAltaPesos = new Intl.NumberFormat("en-US", {style:"currency", currency:"ARS"}).format(hab.tarifaAlta*tipoCambio);
+                tarifaBajaPesos = new Intl.NumberFormat("en-US", {style:"currency", currency:"ARS"}).format(hab.tarifaBaja*tipoCambio);
+
+                filaTarifaAlta.innerText = tarifaAltaPesos;
+                filaTarifaBaja.innerText = tarifaBajaPesos;
+            }
+
+            else if (moneda == "USD"){
+                // Volver a mostrar los precios en USD en USD
+                filaTarifaAlta.innerText = moneda + " " + hab.tarifaAlta;
+                filaTarifaBaja.innerText = moneda + " " + hab.tarifaBaja;
+            }
+        }
+        
+    }
+           
+}
+
+// Convierte una cotizacion de USD a ARS y la inserta en el bloque indicado
+function mostrarCotiPesos(importeEnUSD, bloque){
+    fetch(APIurl)
+        .then(response => response.json())
+        .then(result => {
+            tipoCambio = result.compra;
+            mostrarTarifaARS(importeEnUSD, tipoCambio, bloque);     
+        })
+        .catch(error => console.log('error ', error))
+}
+
+function mostrarTarifaARS(importeEnUSD, tipoCambio, bloque){
+    let importeEnARS = new Intl.NumberFormat("en-US", {style:"currency", currency:"ARS"}).format(importeEnUSD*tipoCambio);
+    let texto = `USD ${importeEnUSD} = ${importeEnARS} a tipo de cambio de hoy ${DateTime.now().toLocaleString()}`
     bloque.innerHTML = `<p class="small text-muted">${texto}</p>`;
 }
 

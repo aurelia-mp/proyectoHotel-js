@@ -68,6 +68,16 @@
             <div id="cotizador" class="oculto">
                 <section>
                     <h2 class="my-5">Nuestras habitaciones</h2>
+
+                    <!-- Filtro para ver los precios en otra moneda-->
+                    <div class="col-2 mx-5 mb-3">
+                        <h4 class="text-start mb-3">Ver precios en otra moneda</h4>
+                        <select class="form-select" aria-label="Selector de moneda" id="selectMoneda">
+                            <option value="USD">USD</option>
+                            <option value="ARS">ARS</option>
+                          </select>
+                      </div>
+
                     <div id="habitaciones" class="row justify-content-lg-between justify-content-center mx-3 px-5" data-aos="fade-up">
 
                     </div>
@@ -107,7 +117,10 @@
                     </form>
 
                     <div id="respuestaCotizacion" class=" w-50 p-5 m-3">
-                        <!-- AQUI VA EL PRECIO CONVERTIDO A ARS CON LA API ExchangeRate-->
+                        <div id="bloquePrecio">
+                            <!-- AQUI VA EL PRECIO CONVERTIDO A ARS CON UNA API-->
+                        </div>
+                        
                     </div>
 
                     <div id="botones" class="oculto d-flex w-50 justify-content-center m-3">
