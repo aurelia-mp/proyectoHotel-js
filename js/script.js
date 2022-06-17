@@ -6,7 +6,7 @@ let moneda = "USD";
 
 // Definición de elementos del DOM
 let contenedorHab = document.getElementById("habitaciones");
-let respuestaCotizacion=document.getElementById("respuestaCotizacion")
+let respuestaCotizacion=document.getElementById("respuestaCotizacion");
 let botonesCotizacion = document.getElementById("botones");
 let botonCotizar = document.getElementById("botonCotizar");
 let botonVolverInicio = document.getElementById("botonVolverInicio");
@@ -22,10 +22,10 @@ let alturaHeader=document.getElementById("headerReservas").offsetHeight;
 let alturaMenu = menuOperaciones.offsetHeight;
 
 // Se crea una lista de habitaciones en forma de cards, con precios en ARS o USD  a elección
-calcularTarifasHabitaciones()
+calcularTarifasHabitaciones();
 
 // Genera dinámicamente el dropdown en el formulario de cotización para elegir la categoría de habitación
-insertarCategorias(habitaciones)
+insertarCategorias(habitaciones);
 
 // Opción 1 del menú : Cotizador
 let opcion1 = document.getElementById("opcion1");
@@ -97,7 +97,7 @@ function cotizarEstadia(e){
             'Fecha de llegada inválida',
             'Por favor, verifica que la fecha ingresada sea mayor o igual a hoy',
             'error'
-          )
+          );
         campoCheckIn = document.getElementById("fechaCheckIn");
         checkIn = transformarEnFecha(campoCheckIn.value);
     }
@@ -108,7 +108,7 @@ function cotizarEstadia(e){
             'Nombre inválido',
             'Por favor, verifica que el nombre ingresado no contenga números',
             'error'
-          )
+          );
         pasajero = document.querySelector("#nombre").value;
     }
 
@@ -118,7 +118,7 @@ function cotizarEstadia(e){
             'Elegí una categoría de habitación',
             'Por favor, elegí una categoría del menú desplegable',
             'error'
-          )
+          );
         numeroCategoria = document.querySelector("#menuCategoria").value;
     }
 
@@ -137,7 +137,7 @@ function cotizarEstadia(e){
             icon: 'error',
             title: 'Fechas de estadía inválidas',
             html: `Lamentablemente, no aceptamos reservas más de ${MaximoAnticipacion} días antes de la llegada`
-            })
+            });
         anticipacionReserva = document.querySelector("#anticipacionReserva").value;
     }
     // TERMINAN LAS VALIDACIONES 
@@ -154,7 +154,7 @@ function cotizarEstadia(e){
         let categoria = habitacionACotizar.categoria;
         
         // Cotiza la estadía y devuelve el total
-        let tarifasCalculadas = calcularEstadia(habitacionACotizar, mes, cantidadNoches, anticipacionReserva)
+        let tarifasCalculadas = calcularEstadia(habitacionACotizar, mes, cantidadNoches, anticipacionReserva);
         let totalEstadiaDescuento = tarifasCalculadas[1];
         let nombrePromo = (tarifasCalculadas[2] || "No aplican promociones");
 
@@ -183,20 +183,18 @@ function cotizarEstadia(e){
                                             <td><button class="btn btn-light" id="botonConvertir">Convertir a ARS</button></td>
                                         </tr>
                                     </tbody>
-                                </table>
-
-        `
+                                </table>`;
         
 
         // Permite ver el importe en pesos argentinos
-        let botonConvertir = document.querySelector("#botonConvertir")
-        let bloquePrecio = document.getElementById("bloquePrecio")
+        let botonConvertir = document.querySelector("#botonConvertir");
+        let bloquePrecio = document.getElementById("bloquePrecio");
 
         botonConvertir.onclick = () => {
-            mostrarCotiPesos(totalEstadiaDescuento, bloquePrecio)
+            mostrarCotiPesos(totalEstadiaDescuento, bloquePrecio);
 
             // Desplaza el bloque después del bloque cotización
-            cotizacion.appendChild(bloquePrecio)
+            cotizacion.appendChild(bloquePrecio);
          };
 
         // Graba la cotización en un objeto provisorio "Reserva" y en storage para retomarla en la pantalla siguiente
@@ -204,12 +202,12 @@ function cotizarEstadia(e){
         localStorage.setItem("quote", JSON.stringify(reservaNueva));
     
         // Mostrar los botones confirmar // reset // volver al inicio
-        botonesCotizacion.classList.toggle("d-none")
+        botonesCotizacion.classList.toggle("d-none");
 
         // Al apretar el boton Reset, se borra los datos del formulario y se re-habilita el botón "submit"
         let botonCotizacionReset = document.getElementById("botonReset");
         botonCotizacionReset.onclick = () => {
-            reiniciarCotizador()
+            reiniciarCotizador();
             // Pre-completa el nombre del pasajero y su email
             document.querySelector("#nombre").value = pasajero;
             document.querySelector("#email").value = email;
@@ -237,7 +235,7 @@ function  calcularEstadia(habitacionACotizar, mes, cantidadNoches, anticipacionR
 
     console.log("Promos Aplicables")
     promosAplicables.forEach(promo =>
-        console.table(promo))
+        console.table(promo));
 
     if (promosAplicables.length > 0){
         // Ordena el array de promos aplicables por orden descendiente de descuento
@@ -246,7 +244,7 @@ function  calcularEstadia(habitacionACotizar, mes, cantidadNoches, anticipacionR
         })
         let descuento = promosAplicables[0].descuento;
         nombrePromoAplicada = promosAplicables[0].nombre;
-        console.log("Descuento a aplicar : " + descuento)
+        console.log("Descuento a aplicar : " + descuento);
 
 
         if (temporadaAlta.includes(mes)){
@@ -280,7 +278,7 @@ function  calcularEstadia(habitacionACotizar, mes, cantidadNoches, anticipacionR
 // Function insertarCategorias para el dropdown del formulario de cotizacion
 function insertarCategorias(lista){
     let menu = document.getElementById("menuCategoria");
-    let counter = 0
+    let counter = 0;
 
     for (const habitacion of lista){
         let opcion = document.createElement("option")
@@ -295,7 +293,7 @@ function reiniciarCotizador(){
     // Borra el elemento del HTML con la coti existente, si la hay
     cotizacion && cotizacion.remove();
     respuestaCotizacion.classList.remove("whiteCard");
-    botonesCotizacion.classList.toggle("d-none")
+    botonesCotizacion.classList.toggle("d-none");
     formulario.reset();
     botonCotizar.disabled=false;
 }
@@ -311,13 +309,13 @@ function calcularTarifasHabitaciones(){
             console.log("Tipo de cambio ARS/USD " + tipoCambio);
             mostrarHabitaciones();        
         })
-        .catch(error => console.log('error ', error))
+        .catch(error => console.log('error ', error));
 }
 
 function mostrarHabitaciones(){
     for (const hab of habitaciones){
         // Se crea la card para cada habitación
-        let card = document.createElement("div")
+        let card = document.createElement("div");
 
         card.className= "row gx-5 whiteCard align-items-center flex-lg-column col-lg-6 col-xl-4 mb-3";
 
@@ -346,15 +344,14 @@ function mostrarHabitaciones(){
                                     
                                 </div>
                             </div>
-                        </div>
-        `
+                        </div>`;
         contenedorHab.append(card);
     }
 
     let moneda, tarifaAltaPesos, tarifaBajaPesos;
     let seleccion = document.querySelector("#selectMoneda");
 
-    seleccion.onchange = (  ) => {
+    seleccion.onchange = () => {
         moneda = seleccion.value;
         for (const hab of habitaciones){
             let filaTarifaAlta = document.getElementById(`tarifaAlta${hab.id}`);
@@ -382,7 +379,7 @@ function mostrarHabitaciones(){
     // Agrega Sweet Alert con tabla de promociones
     let divPromociones = document.createElement("div");
     divPromociones.innerHTML = `<p class="text-muted small">Tarifas RACK - Consultá aquí las <span class="link-primary" id="btnPromos">promociones</span> por reserva anticipada o estadías prolongadas</p>`
-    contenedorHab.append(divPromociones)
+    contenedorHab.append(divPromociones);
     let botonPromos = document.getElementById("btnPromos");
     botonPromos.onclick = () => {
         Swal.fire({
@@ -390,8 +387,7 @@ function mostrarHabitaciones(){
             title: 'Promociones vigentes',
             html:  crearHTMLPromos(),
             footer: 'Se aplicará automáticamente la mejor promoción disponible'
-        }
-        )
+        });
     }
 }
 // Convierte una cotizacion de USD a ARS y la inserta en el bloque indicado
@@ -402,12 +398,12 @@ function mostrarCotiPesos(importeEnUSD, bloque){
             tipoCambio = result.compra;
             mostrarTarifaARS(importeEnUSD, tipoCambio, bloque);     
         })
-        .catch(error => console.log('error ', error))
+        .catch(error => console.log('error ', error));
 }
 
 function mostrarTarifaARS(importeEnUSD, tipoCambio, bloque){
     let importeEnARS = new Intl.NumberFormat("en-US", {style:"currency", currency:"ARS"}).format(importeEnUSD*tipoCambio);
-    let texto = `USD ${importeEnUSD} = ${importeEnARS} a tipo de cambio oficial de hoy ${DateTime.now().toLocaleString()}`
+    let texto = `USD ${importeEnUSD} = ${importeEnARS} a tipo de cambio oficial de hoy ${DateTime.now().toLocaleString()}`;
     bloque.innerHTML = `<p class="small fs-5 text-muted">${texto}</p>`;
 }
 
@@ -420,21 +416,17 @@ function crearHTMLPromos(){
                             <td>Descuento</td>
                         </tr>
                     </thead>
-                    <tbody>
-                    `
+                    <tbody>`;
     Promos.forEach(promo => {
         tablaPromos += `
                     <tr>
                         <td>${promo.nombre}</td>
                         <td>${promo.descuento}%</td>
-                    </tr>
-         `
+                    </tr> `;
     }); 
-    tablaPromos += "</tbody></table>"
+    tablaPromos += "</tbody></table>";
     return tablaPromos;
 }
-
-
 
 /////////////////////////
 // OPCION 2 : CONSULTAS//
@@ -498,14 +490,14 @@ function mostrarReservas(array, parametro){
         else{
             respuestaConsulta.innerHTML= `Hay reserva(s) con este ${parametro} : \n`;
             reservasFiltradasActivas.forEach(reserva => {
-                let impresionReserva = document.createElement("p")
-                impresionReserva.innerHTML = renderizarReserva(reserva)
+                let impresionReserva = document.createElement("p");
+                impresionReserva.innerHTML = renderizarReserva(reserva);
                 respuestaConsulta.append(impresionReserva);
                 let id = reserva.numero;          
                 let botonCancelar = document.getElementById(`botonCancelar${id}`);
                 botonCancelar.classList.toggle("oculto");
-                console.dir(JSON.stringify(reserva))
-                botonCancelar.onclick = () => {cancelar(reserva)}
+                console.dir(JSON.stringify(reserva));
+                botonCancelar.onclick = () => {cancelar(reserva)};
             })
         }
         }
@@ -542,8 +534,7 @@ function cancelar(reserva){
                     Swal.fire({
                     title: 'Reserva cancelada!',
                     text: 'Tu reserva está cancelada. Esperamos recibirte en otra oportunidad',
-                    icon: 'success',
-                    footer: '<a href="reservas.html">Hacer una nueva reserva</a>'
+                    icon: 'success'
                     })  
                     // Volver al inicio
                     respuestaConsulta.innerHTML=""; 

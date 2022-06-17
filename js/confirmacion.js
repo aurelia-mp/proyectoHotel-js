@@ -6,21 +6,22 @@ let tarjeta = document.getElementById("tarjeta");
 let formularioTC = document.getElementById("formularioTC");
 
 // Convierte la reserva en storage a un objeto 
-let reservaEnCurso = JSON.parse(localStorage.getItem("quote"))
-console.table(reservas)
+let reservaEnCurso = JSON.parse(localStorage.getItem("quote"));
+console.table(reservas);
 
 // Al llegar a la página de confirmación, la reserva en curso se agrega al array de reservas
 window.onload = () => {
-    // Solo suma la rva si es la primera vez que se carga (evita que se sume múltiples veces si recargamos la página    )
+    // Solo agrega la reserva al array si es la 1ravez que se carga
+    // Evita que se cargue múltiples veces si recargamos la página
     let id= reservaEnCurso.numero;
     let reservasFiltradas = reservas.filter((reserva) => reserva.numero == id);
     reservasFiltradas.length == 0 ? agregarReserva(reservaEnCurso) : console.log("Reserva ya ingresada");
-    console.log("Nueva lista de reservas:")
-    console.table(reservas)
+    console.log("Nueva lista de reservas:");
+    console.table(reservas);
 } 
 
 // INSERTA LA RESERVA DESDE LA COTIZACIÓN GUARDADA EN STORAGE
-quote.innerHTML = renderizarReserva(reservaEnCurso)
+quote.innerHTML = renderizarReserva(reservaEnCurso);
 
 /////////////////////////////////////////////
 // PAGO OPCIÓN 1 : TRANSFERENCIA BANCARIA ///
@@ -28,7 +29,7 @@ quote.innerHTML = renderizarReserva(reservaEnCurso)
 
 botonTransferencia.onclick = () => {
     // Oculta el formulario de TC si éstos están visibles
-    (!formularioTC.classList.contains("d-none")) && formularioTC.classList.add("d-none")
+    (!formularioTC.classList.contains("d-none")) && formularioTC.classList.add("d-none");
 
     // MUESTRA DATOS DE LA CUENTA BANCARIA SI SE ELIGE "TRANSFERENCIA"
     mostrarDatosBancarios();
@@ -42,8 +43,8 @@ async function mostrarDatosBancarios(){
     const data = await response.json();
     tipoCambio = data.compra;
     console.log("Tipo de cambio ARS/USD " + tipoCambio);
-    let importeFormateadoPesos = new Intl.NumberFormat().format(reservaEnCurso.totalEstadia * tipoCambio)
-    let importeFormateadoUSD = new Intl.NumberFormat().format(reservaEnCurso.totalEstadia)
+    let importeFormateadoPesos = new Intl.NumberFormat().format(reservaEnCurso.totalEstadia * tipoCambio);
+    let importeFormateadoUSD = new Intl.NumberFormat().format(reservaEnCurso.totalEstadia);
 
     // Muestra los datos bancarios y el importe a abonar en pesos
     datosBancarios.innerHTML = `
@@ -57,9 +58,7 @@ async function mostrarDatosBancarios(){
         <li>Importe a transferir: USD ${importeFormateadoUSD} / <strong>AR$ ${importeFormateadoPesos}</strong></p>
     </ul>
     <p>Una vez realizada por favor enviarnos el comprobante por mail a <a mailto="info@palosantohotel.com">info@palosantohotel.com</a></p>
-
-    
-    <p class="my-5">¡Hasta pronto, ${reservaEnCurso.pasajero}!</p>`
+    <p class="my-5">¡Hasta pronto, ${reservaEnCurso.pasajero}!</p>`;
     datosBancarios.classList.toggle("d-none");
     let campoNumeroReserva = document.getElementById("campoNumeroReserva"); 
     campoNumeroReserva.innerHTML = `${reservaEnCurso.numero}`;
@@ -72,10 +71,10 @@ async function mostrarDatosBancarios(){
 // MUESTRA FORMULARIO PARA INGRESAR DATOS SI SE ELIGE "TARJETA DE CRÉDITO"
 tarjeta.onclick = () =>{
     // Oculta los datos bancarios si éstos están visibles
-    (!datosBancarios.classList.contains("d-none")) && datosBancarios.classList.add("d-none")
+    (!datosBancarios.classList.contains("d-none")) && datosBancarios.classList.add("d-none");
     formularioTC.classList.toggle("d-none");
 }
-formularioTC.addEventListener("submit", validarFormTarjeta)
+formularioTC.addEventListener("submit", validarFormTarjeta);
 
 
 // Validación de los datos de tarjeta
@@ -92,16 +91,16 @@ function validarFormTarjeta(e){
                 'Nombre inválido',
                 'Por favor, verifica que el nombre ingresado no contenga números',
                 'error'
-              )
+              );
             titular = document.querySelector("#nombreTitular").value;
         }
 
         else if(isNaN(numeroTC) || numeroTC.length < 14 || numeroTC.length >19){
             Swal.fire(
                 'Número de tarjeta inválido',
-                'Por favor, ingresa el número sin espacios ni caracteres especiales',
+                'Por favor, ingresa el número sin espacios ni caracteres especiales. El número debería tener de 14 a 16 caracteres',
                 'error'
-              )
+              );
             numeroTC = document.querySelector("#numeroTC").value;
         }
 
@@ -110,7 +109,7 @@ function validarFormTarjeta(e){
                 'Fecha de vencimiento inválida',
                 'Por favor, chequea la fecha de vencimiento. El formato debería ser MM/AA',
                 'error'
-              )
+              );
             vencimiento = document.querySelector("#vencimiento").value;
         }
 
@@ -119,7 +118,7 @@ function validarFormTarjeta(e){
                 'CVV inválido',
                 'Chequea el CVV. Debería tener 3 o 4 números',
                 'error'
-              )
+              );
             cvv = document.querySelector("#cvv").value;
         }
 
@@ -131,7 +130,7 @@ function validarFormTarjeta(e){
                 numeroTC : numeroTC,
                 vencimiento: vencimiento,
                 cvv: cvv
-            }
+            };
             console.log(tarjeta);
             Tarjetas.push(tarjeta);
             console.table(Tarjetas)
@@ -139,7 +138,7 @@ function validarFormTarjeta(e){
                 'Felicitaciones',
                 'Muchas gracias por tu reserva! Procesaremos tu pago a la brevedad. Recibirás un email con tu factura',
                 'success'
-              )
+              );
             formularioTC.reset();
             formularioTC.classList.toggle("d-none");
         }
@@ -150,15 +149,15 @@ function validarFechaVto(numero){
     let anio = numero [3] + numero [4]
     
     let mesActual = today.month;
-    let anioActual = DateTime.fromISO(today).toFormat('yy')
+    let anioActual = DateTime.fromISO(today).toFormat('yy');
     
     // Verificar que tenga 5 caracteres: 2 numeros de cada lado de una barra
-        if(isNaN(mes) || isNaN(anio) || numero[2]!= "/" ){
+        if(isNaN(mes)||isNaN(anio)||numero[2]!= "/"){
             return false
         }
 
     // Verificar que el numero sea posterior a hoy
-        else if(anio < anioActual || (anio == anioActual && mes < mesActual) ){
+        else if(anio < anioActual||(anio == anioActual && mes < mesActual)){
             return false
         }
 

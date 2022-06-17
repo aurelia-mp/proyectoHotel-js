@@ -59,7 +59,7 @@ const Promos = [
         minAnticipacion : 60,
         maxAnticipacion : 365
     }
-]
+];
 
 // Definicion de restriciciones
 const MaximoNoches = 30;
@@ -69,7 +69,7 @@ const MaximoAnticipacion = 500;
 const Tarjetas = [];
 
 // URL API para conversión de moneda
-const APIurl = `https://api-dolar-argentina.herokuapp.com/api/dolaroficial`;
+const APIurl = 'https://api-dolar-argentina.herokuapp.com/api/dolaroficial';
 
 // Luxon - Inicialización de DateTime y creación de una instancia "today"
 const DateTime = luxon.DateTime;
@@ -77,7 +77,7 @@ const today = DateTime.now();
 
 // Function para transformar un string en una fecha
 function transformarEnFecha(string){
-    return DateTime.fromISO(string)
+    return DateTime.fromISO(string);
 }
 // Función que genera el html para renderizar reservas
 
@@ -85,7 +85,7 @@ function renderizarReserva(reserva){
     // Transforma la fecha en un check in
     reserva.checkin = transformarEnFecha(reserva.checkin);
     let importeFormateado = new Intl.NumberFormat().format(reserva.totalEstadia);
-    return tablaReserva =  
+    let tablaReserva =  
             `<table class ="table table-light table-hover my-5">
             <thead>
                 <td>Reserva #</td>
@@ -108,6 +108,7 @@ function renderizarReserva(reserva){
                 <td><button type="button" class="btn btn-danger oculto" id="botonCancelar${reserva.numero}">Cancelar</button></td>
             </tbody> 
         </table>`;
+        return tablaReserva;
 }
 
 // INICIALIZACIÓN DE VARIABLES
@@ -134,7 +135,7 @@ const reserva4 = new Reserva(4, "Leon Suarez", "ls111@gmail.com", "2023-03-03", 
 
 //  Trae el array de reservas desde el storage o crea un array con las 4 reservas iniciales
 
-let reservas = JSON.parse(localStorage.getItem("reservas")) || [reserva1, reserva2, reserva3, reserva4]
+let reservas = JSON.parse(localStorage.getItem("reservas")) || [reserva1, reserva2, reserva3, reserva4];
 
 // Se inicializa numeroReserva según el largo del array reservas
 let numeroReserva = reservas.length + 1; 

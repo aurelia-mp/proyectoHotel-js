@@ -86,7 +86,7 @@
                 <section id="divCotizacion" class="d-flex align-items-center"> 
                     <form id="formulario" class="w-100">
                         <h2 class="mb-5">Para cotizar tu estadía, por favor ingresá los siguientes datos</h2>
-                        <div class="row">
+                        <div class="row mb-4">
                             <!-- Campo nombre-->
                             <div class="col">
                                 <label for="nombre" class="form-label">Nombre Completo</label>
@@ -97,32 +97,34 @@
                                 <label for="email" class="form-label">Dirección de mail</label>
                                 <input type="email" class="form-control" id="email" required>
                             </div>
-                            <!-- Campo categoría-->
-                            <label for="menuCategoria" class="form-label">¿En qué categoría te querrías hospedar?</label>
-                            <select class="form-select" aria-label="Elegir una categoría" id="menuCategoria" required>
-                                <option selected>Elegí una categoría</option>
-                                <!-- INSERTA OPCIONES DE FORMA DINÁMICA VIA JS -->
-                            </select>
                         </div>
                         
                         <div class="row mb-4">
-                            <div class="col">
+                            <div class="col-6">
+                                <!-- Campo categoría-->
+                                <label for="menuCategoria" class="form-label">Categoría</label>
+                                <select class="form-select" aria-label="Elegir una categoría" id="menuCategoria" required>
+                                    <option selected>Elegí una categoría</option>
+                                    <!-- INSERTA OPCIONES DE FORMA DINÁMICA VIA JS -->
+                                </select>
+                            </div>
+                            <div class="col-3">
                             <!-- Campo fecha check in-->
                                 <label for="fechaCheckIn" class="form-label">Fecha de llegada</label>
                                 <input type="date" class="form-control" id="fechaCheckIn" onchange="setMinCheckOut()" required>
                             </div>
                             <!-- Campo fecha check out-->
-                            <div class="col">
+                            <div class="col-3">
                             <label for="fechaCheckOut" class="form-label">Fecha de salida</label>
                             <input type="date" class="form-control" id="fechaCheckOut" required>
                         </div>
                             
                         </div>
 
-                        <button id= "botonCotizar" type="submit" class="btn btn-grad m-3 w-25">Submit</button>
+                        <button id= "botonCotizar" type="submit" class="btn btn-grad m-3 w-25">Cotizar</button>
                     </form>
 
-                    <div id="respuestaCotizacion" class="w-50 p-5 m-3">
+                    <div id="respuestaCotizacion" class="p-5 m-3">
                         <div id="bloquePrecio">
                             <!-- AQUI VA EL PRECIO CONVERTIDO A ARS CON UNA API-->
                         </div>
@@ -139,33 +141,31 @@
             <div id="consultas" class="oculto">
                     <h2 class="my-5">Consulta el estado de tu reserva</h2>
 
-                <section>
+                <section class="container">
                         <div id="opcionesConsulta">
                             <button class="btn btn-grad btn-lg btn-menu w-75 my-3" id="opcionNombre">Buscar por nombre</button>
                             <button class="btn btn-grad btn-lg btn-menu w-75 my-3" id="opcionId">Buscar por número de reserva</button>
                         </div>
-                        <div>
-                            <form id="formNombre" class="oculto">
-                                <div class="row my-3 ">
-                                    <!-- Campo nombre-->
-                                    <label for="nombreUsuario" class="form-label">Nombre Completo</label>
-                                    <input type="text" class="form-control" id="nombreUsuario">
-                                </div>
-                                <button class="btn btn-dark btn-lg my-3" type="submit">Consultar</button>
-                            </form>
-                            
-                            <form id="formNumero" class="oculto">
-                                <div class="row mb-4" id="numReserva">
-                                    <!-- Campo número de reserva-->
-                                    <label for="idReserva" class="form-label">Número de reserva</label>
-                                    <input type="number" min="1" class="form-control" id="idReserva"> 
-                                </div>
-                                <button class="btn btn-dark btn-lg my-3" type="submit">Consultar</button>
-                            </form>
-                        </div>
-                </section>
-                <p id="respuestaConsulta"></p>
 
+                        <form id="formNombre" class="oculto">
+                            <div class="row my-3 ">
+                                <!-- Campo nombre-->
+                                <label for="nombreUsuario" class="form-label">Nombre Completo</label>
+                                <input type="text" class="form-control" id="nombreUsuario">
+                            </div>
+                            <button class="btn btn-dark btn-lg my-3" type="submit">Consultar</button>
+                        </form>
+                        
+                        <form id="formNumero" class="oculto">
+                            <div class="row mb-4" id="numReserva">
+                                <!-- Campo número de reserva-->
+                                <label for="idReserva" class="form-label">Número de reserva</label>
+                                <input type="number" min="1" class="form-control" id="idReserva"> 
+                            </div>
+                            <button class="btn btn-dark btn-lg my-3" type="submit">Consultar</button>
+                        </form>
+                        <p id="respuestaConsulta"></p>
+                </section>
             </div>
             
             <a href="reservar.html" id="botonVolverInicio" class="btn btn-secondary btn-lg oculto">Elegir otra operación</a>
