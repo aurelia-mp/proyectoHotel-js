@@ -31,21 +31,45 @@
     </header>
 
     <main class="container text-center">
-        <h2>Muchas gracias por tu interés en hospedarte con nosotros</h2>
         <h3>A continuación te mostramos los detalles de tu reserva en curso:</h3>
 
-        <!-- ACA SE INSERTAN LOS DATOS DE LA RESERVA-->
         <p id="reservaEnCurso">
-
+              <!-- ACA SE INSERTAN LOS DATOS DE LA RESERVA-->
         </p>
 
         <h3>Para finalizar tu reserva, elegí una forma de pago</h3>
         <div class="my-5" id="formasPago">
             <button id="transferencia" class="btn btn-success btn-lg">Transferencia Bancaria</button>
-            <!-- Falta integración al API -->
-            <button id="mercadopago" class="btn btn-primary btn-lg">MercadoPago</button>
+            <button id="tarjeta" class="btn btn-primary btn-lg">Tarjeta de crédito</button>
         </div>
 
+        <div class="d-none" id="datosBancarios">
+            
+        </div>
+
+        <div class="col-12 d-flex justify-content-center " > 
+            <form class="row g-3 d-none" id="formularioTC">
+                <div class="col-12">
+                    <label for="nombreTitular" class="form-label">Nombre del titular</label>
+                    <input type="text" class="form-control" id="nombreTitular" placeholder="Nombre Apellido" required>
+                </div>
+                <div class="col-12">
+                    <label for="numeroTC" class="form-label">Número de tarjeta</label>
+                    <input type="number" class="form-control" id="numeroTC" placeholder="1234567891011" required>
+                </div>
+                <div class="col-md-6">
+                  <label for="vencimiento" class="form-label">Fecha de vencimiento (formato MM/AA)</label>
+                  <input type="text" class="form-control" id="vencimiento" placeholder="11/26" required>
+                </div>
+                <div class="col-md-6">
+                  <label for="cvv" class="form-label">CVV</label>
+                  <input type="password" class="form-control" id="cvv" placeholder="111" required>
+                </div>
+                <div class="col-12">
+                  <button type="submit" class="btn btn-primary" id="botonDatosTC">Confirmar</button>
+                </div>
+              </form>
+        </div>
         <a href="reservar.html" id="botonVolverInicio" class="btn btn-secondary btn-lg">Volver a la página anterior</a>
     </main>
 
@@ -71,10 +95,12 @@
 
     <!-- Luxon JS -->
     <script src="https://cdn.jsdelivr.net/npm/luxon@2.3.0/build/global/luxon.min.js"></script>
+     <!-- Sweet Alert -->
+     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <!-- Scripts propios -->
-    <script src="../js/objetos.js"></script>
+    <script src="../js/globales.js"></script>
     <script src="../js/confirmacion.js"></script>
   
 </body>

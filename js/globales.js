@@ -1,3 +1,5 @@
+// OBJETOS Y FUNCIONES QUE SE UTILIZAN EN AMBOS HTML
+
 class Habitacion {
     constructor(id, categoria, descripcion, tarifaBaja, tarifaAlta, img){
         this.id = id;
@@ -26,8 +28,52 @@ class Reserva {
     }
 }
 
-// Inicialización de DateTime para utilizar luxon
+const Promos = [
+    {
+        id : 1,
+        nombre: "Estadía Prolongada - Cuatro noches o más",
+        tipo : "longStay",
+        descuento : 15,
+        minNoches : 4,
+        maxNoches : 45,
+        minAnticipacion : 0,
+        maxAnticipacion : 365
+    },
+    {
+        id : 2,
+        nombre: "Reserva anticipada - más de 21 días",
+        tipo : "earlyBooking",
+        descuento : 10,
+        minNoches : 0,
+        maxNoches : 45,
+        minAnticipacion : 21,
+        maxAnticipacion : 365
+    },
+    {
+        id : 3,
+        nombre: "Reserva anticipada - más de 60 días",
+        tipo : "earlyBooking",
+        descuento : 20,
+        minNoches : 0,
+        maxNoches : 45,
+        minAnticipacion : 60,
+        maxAnticipacion : 365
+    }
+]
+
+// Definicion de restriciciones
+const MaximoNoches = 30;
+const MaximoAnticipacion = 500;
+
+// Array inicial de tarjetas
+const Tarjetas = [];
+
+// URL API para conversión de moneda
+const APIurl = `https://api-dolar-argentina.herokuapp.com/api/dolaroficial`;
+
+// Luxon - Inicialización de DateTime y creación de una instancia "today"
 const DateTime = luxon.DateTime;
+const today = DateTime.now();
 
 // Function para transformar un string en una fecha
 function transformarEnFecha(string){
@@ -38,6 +84,7 @@ function transformarEnFecha(string){
 function renderizarReserva(reserva){
     // Transforma la fecha en un check in
     reserva.checkin = transformarEnFecha(reserva.checkin);
+    let importeFormateado = new Intl.NumberFormat().format(reserva.totalEstadia);
     return tablaReserva =  
             `<table class ="table table-light table-hover my-5">
             <thead>
@@ -57,7 +104,7 @@ function renderizarReserva(reserva){
                 <td>${reserva.noches}</td>
                 <td>${reserva.categoria}</td>
                 <td>${reserva.status}</td>
-                <td>${reserva.totalEstadia}</td>
+                <td>USD ${importeFormateado}</td>
                 <td><button type="button" class="btn btn-danger oculto" id="botonCancelar${reserva.numero}">Cancelar</button></td>
             </tbody> 
         </table>`;
@@ -76,7 +123,7 @@ habitaciones.push(standard, superior, suite);
 
 // Se definien las temporadas como arrays con números de meses
 let temporadaBaja = [5,6,7,8,9];
-let temporadaAlta = [1,2,3,10,11,12];
+let temporadaAlta = [1,2,3,4,10,11,12];
 
 // Se cargan 4 reservas de clase Reserva en un array inicial
 
@@ -91,3 +138,14 @@ let reservas = JSON.parse(localStorage.getItem("reservas")) || [reserva1, reserv
 
 // Se inicializa numeroReserva según el largo del array reservas
 let numeroReserva = reservas.length + 1; 
+
+
+// Función para validar que un string no contenga números
+function validarTexto(texto){
+    for (let i = 0; i<texto.length;i++){
+        if (!isNaN(texto[i]) && texto[i] != " "){
+            return false;
+        }
+    }   
+    return true;
+}
