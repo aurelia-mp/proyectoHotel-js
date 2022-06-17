@@ -13,6 +13,8 @@ let botonVolverInicio = document.getElementById("botonVolverInicio");
 let consultas = document.getElementById("consultas");
 let respuestaConsulta = document.getElementById("respuestaConsulta");
 let menuOperaciones = document.getElementById("menuOperaciones");
+let campoCheckIn = document.getElementById("fechaCheckIn");
+let campoCheckOut = document.getElementById("fechaCheckOut");
 
 // Mide la altura de los elementos de la parte superior del sitio para el scroll
 let alturaNav = document.getElementById("navbar").offsetHeight;
@@ -54,6 +56,11 @@ function iniciarCotizador(){
     formularioCotizacion.addEventListener("submit", cotizarEstadia);
 }
 
+// En el formulario, posiciona la fecha de check out automáticamente después del check in
+function setMinCheckOut() {
+    campoCheckOut.setAttribute("min", campoCheckIn.value);
+}
+
 // Funcion cotizar estadía - Asociada al evento SUBMIT en el formulario de cotización
 function cotizarEstadia(e){
     console.table(reservas);
@@ -69,10 +76,7 @@ function cotizarEstadia(e){
     let hoy = today.startOf('day');
 
     // Transforma el valor del campo check in en una instancia de Date Time
-    let campoCheckIn = document.getElementById("fechaCheckIn");
     let checkIn = transformarEnFecha(campoCheckIn.value);
-
-    let campoCheckOut = document.getElementById("fechaCheckOut");
     let checkOut = transformarEnFecha(campoCheckOut.value);
 
     const Interval = luxon.Interval;
@@ -87,7 +91,6 @@ function cotizarEstadia(e){
 
 
     // VALIDACIONES DEL FORMULARIO
-
     // Validar fecha check in: No permitir fecha anterior a hoy
     if(checkIn  < hoy ){
         Swal.fire(
@@ -97,17 +100,6 @@ function cotizarEstadia(e){
           )
         campoCheckIn = document.getElementById("fechaCheckIn");
         checkIn = transformarEnFecha(campoCheckIn.value);
-    }
-
-    // Validar fecha check out: No permitir fecha anterior al check in
-    else if(checkOut  <= checkIn ){
-        Swal.fire(
-            'Fecha de salida inválida',
-            'Por favor, verifica que la fecha de salida ingresada sea posterior a la fecha de llegada',
-            'error'
-            )
-        campoCheckOut = document.getElementById("fechaCheckOut");
-        checkOut = transformarEnFecha(campoCheckOut.value);
     }
     
     // Validar que el campo nombre no tenga números
@@ -590,3 +582,4 @@ function habilitarSeccion(seccion){
         boton.disabled = false;
     }
 }
+
