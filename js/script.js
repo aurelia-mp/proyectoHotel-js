@@ -383,6 +383,7 @@ function mostrarHabitaciones(){
     let botonPromos = document.getElementById("btnPromos");
     botonPromos.onclick = () => {
         Swal.fire({
+            width: 500,
             icon: 'info',
             title: 'Promociones vigentes',
             html:  crearHTMLPromos(),
@@ -409,7 +410,7 @@ function mostrarTarifaARS(importeEnUSD, tipoCambio, bloque){
 
 // Función para renderizar la tabla de promociones
 function crearHTMLPromos(){
-    tablaPromos = `<table class="my-5 table table-primary table-striped fs-5">
+    tablaPromos = `<table class="my-5 table table-primary table-striped fs-4">
                     <thead>
                         <tr>
                             <td>Nombre</td>
